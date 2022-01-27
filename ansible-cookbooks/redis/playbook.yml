@@ -1,0 +1,10 @@
+---
+# - hosts: redis_nodes
+#   become: true
+#   roles:
+#     - redisdb
+
+- hosts: redis_nodes
+  become: true
+  roles:
+    - redisdb

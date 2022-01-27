@@ -1,0 +1,92 @@
+[registry]
+13.234.32.156 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu DOCKER_REGISTRY_USER=test DOCKER_REGISTRY_PASSWORD=testpassword
+
+[elasticsearch]
+13.234.32.156 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
+; Redis inventory Start
+[standalone]
+standalone1 ansible_ssh_host=13.234.32.156 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
+
+[redis_nodes]
+redisnode1 ansible_ssh_host=13.234.32.156 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
+
+[master_nodes]
+masternode1 ansible_ssh_host=23.92.28.137 master_id=0
+masternode2 ansible_ssh_host=173.230.142.155 master_id=1
+masternode3 ansible_ssh_host=50.116.35.169 master_id=2
+
+[slave_nodes]
+slavenode1 ansible_ssh_host=23.92.28.137 master_id=2
+slavenode2 ansible_ssh_host=173.230.142.155 master_id=0
+slavenode3 ansible_ssh_host=50.116.35.169 master_id=1
+
+[redis_cluster:children]
+master_nodes
+slave_nodes
+
+[cluster_formation_node]
+masternode1
+
+[redis_cluster:vars]
+redis_port=6379
+master_redis_port=6379
+slave_redis_port=6380
+
+; Redis Inventory end
+
+[kafka]
+13.7.58.82  ansible_ssh_private_key_file=~/.ssh/divoc.pem ansible_ssh_user=ubuntu broker_id=1 adv_ip=172.31.27.143
+113.234.56.137 ansible_ssh_private_key_file=~/.ssh/divoc.pem ansible_ssh_user=ubuntu broker_id=2 adv_ip=172.31.26.101
+165.1.13.233 ansible_ssh_private_key_file=~/.ssh/divoc.pem ansible_ssh_user=ubuntu broker_id=3 adv_ip=172.31.18.124
+165.1.13.231 ansible_ssh_private_key_file=~/.ssh/divoc.pem ansible_ssh_user=ubuntu broker_id=4 adv_ip=172.31.18.123
+165.1.13.232 ansible_ssh_private_key_file=~/.ssh/divoc.pem ansible_ssh_user=ubuntu broker_id=5 adv_ip=172.31.18.122
+
+; Kubernetes Inventory start
+[kube_control_plane]
+13.7.58.82  ansible_ssh_private_key_file=~/.ssh/divoc.pem ansible_ssh_user=ubuntu broker_id=1 adv_ip=172.31.27.143
+
+[etcd]
+13.7.58.82  ansible_ssh_private_key_file=~/.ssh/divoc.pem ansible_ssh_user=ubuntu broker_id=1 adv_ip=172.31.27.143
+
+[kube_node]
+13.7.58.82  ansible_ssh_private_key_file=~/.ssh/divoc.pem ansible_ssh_user=ubuntu broker_id=1 adv_ip=172.31.27.143
+
+[k8s_cluster:children]
+kube_node
+kube_control_plane
+; Kubernetes Inventory end
+
+; Postgres Cluster
+[etcd_cluster]  # recommendation: 3 or 5-7 nodes
+10.128.64.140
+10.128.64.142
+10.128.64.143
+
+
+# if with_haproxy_load_balancing: true (in vars/main.yml)
+[balancers]
+10.128.64.140
+10.128.64.142
+10.128.64.143
+
+
+# PostgreSQL nodes
+[master]
+10.128.64.140 hostname=pgnode01 postgresql_exists='false'
+
+[replica]
+10.128.64.142 hostname=pgnode02 postgresql_exists='false'
+10.128.64.143 hostname=pgnode03 postgresql_exists='false'
+
+[postgres_cluster:children]
+master
+replica
+
+
+# In this example, all components will be installed on PostgreSQL nodes
+# You can deploy the etcd cluster and the haproxy balancers on other dedicated servers. 
+
+
+[pgbackrest:vars]
+ansible_user='postgres'
+ansible_ssh_pass='secretpassword'
