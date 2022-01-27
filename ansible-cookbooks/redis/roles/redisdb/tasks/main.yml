@@ -1,34 +1,42 @@
 ---
-- include_vars: config.yml
+- name: Checking Pre-Requisities
+  include: check-prerequisities.yml
 
-## NOTE: There are many ways to let Ansible know what cluster/subcluster you are deploying
-## here for example we are using "ec2_instance_facts" module to get AWS EC2 tags
-# # Collect EC2 tags and set facts
-# - local_action:
-#     module: ec2_instance_facts
-#     filters:
-#       "tag:stack_server_type": "{{cluster}}:redisdb"
-#   become: false
-## but for demo these values simply hardcoded
-- set_fact: cluster="testcluster1"
-- set_fact: ec2_tag_redis_subcluster="redisdb"
-#
+- name: Configure OS level packages
+  include: configure-packages.yml
+  when: >
+    inventory_hostname in groups['redis_nodes'] or
+    inventory_hostname in groups['standalone']
 
-- set_fact: subclusters={{services[cluster]}}
-- set_fact:
-    subcluster_var: redisdb
-  when: db_var is defined and not subcluster_var is defined
-- set_fact:
-    subclusters:
-      "{{subcluster_var}}": "{{services[cluster][subcluster_var]}}"
-  when: subcluster_var is defined
+- name: Install and configure redis with common configuration
+  include: install-configure.yml
+  when: >
+    inventory_hostname in groups['redis_nodes'] or
+    inventory_hostname in groups['standalone']
 
-- name: Iterate over subclusters inside the cluster
-  include_tasks: subcluster.yml
-  with_dict:
-    - "{{subclusters}}"
-  loop_control:
-    loop_var: subcluster_item
-  vars:
-    subcluster: "{{subcluster_item.key}}"
-  # when: "ec2_tag_redis_subcluster == cluster+':'+subcluster_item.key"
+- name: Configure standalone Redis Server
+  include: standalone.yml
+  when: >
+    inventory_hostname in groups['standalone']
+
+- name: Configure Redis master
+  include: master.yml
+  when: >
+    inventory_hostname in groups['master_nodes']
+
+- name: Configure Redis master
+  include: slave.yml
+  when: >
+    inventory_hostname in groups['slave_nodes']
+
+- name: Running All Handlers
+  meta: flush_handlers
+
+- name: Including Healthcheck tasks
+  include: healthcheck.yml
+
+- name: Including playbook to create cluster
+  include: create-cluster.yml
+  when: >
+    inventory_hostname in groups['redis_cluster'] and
+    cluster_enabled

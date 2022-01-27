@@ -1,2 +1,5 @@
 *.retry
 .idea/*
+.vscode/*
+.src_code/*
+*.pem
