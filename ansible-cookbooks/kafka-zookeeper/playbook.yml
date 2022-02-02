@@ -8,7 +8,7 @@
   become: true
   roles:
     - role: zookeeper
-      sansible_zookeeper_hosts: kafka
+      sansible_zookeeper_hosts: "{{ groups[ 'kafka' ] }}"
 
 - name: Install kafka
   hosts: kafka
