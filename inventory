@@ -58,25 +58,25 @@ kube_control_plane
 
 ; Postgres Cluster
 [etcd_cluster]  # recommendation: 3 or 5-7 nodes
-10.128.64.140
-10.128.64.142
-10.128.64.143
+3.110.178.120 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
+13.233.63.248 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
+35.154.13.169 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
 
 
 # if with_haproxy_load_balancing: true (in vars/main.yml)
 [balancers]
-10.128.64.140
-10.128.64.142
-10.128.64.143
+3.110.178.120 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
+13.233.63.248 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
+35.154.13.169 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
 
 
 # PostgreSQL nodes
 [master]
-10.128.64.140 hostname=pgnode01 postgresql_exists='false'
+3.110.178.120 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu hostname=pgnode01 postgresql_exists='true'
 
 [replica]
-10.128.64.142 hostname=pgnode02 postgresql_exists='false'
-10.128.64.143 hostname=pgnode03 postgresql_exists='false'
+13.233.63.248 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu hostname=pgnode02 postgresql_exists='true'
+35.154.13.169 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu hostname=pgnode03 postgresql_exists='true'
 
 [postgres_cluster:children]
 master

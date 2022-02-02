@@ -1,6 +1,5 @@
 ---
 # yamllint disable rule:comments-indentation
-# yamllint disable rule:line-length
 
 dependency:
   name: galaxy
@@ -10,7 +9,7 @@ driver:
 platforms:
   - name: 10.172.0.17
     hostname: etcd01
-    image: "${IMAGE_NAMESPACE:-geerlingguy}/docker-${IMAGE_DISTRO:-centos8}-ansible:${IMAGE_TAG:-latest}"
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest
     # docker_networks:  # TODO github.com/ansible-community/molecule/pull/2696
       # - name: test_docker_network
         # ipam_config:
@@ -35,7 +34,7 @@ platforms:
 
   - name: 10.172.0.18
     hostname: etcd02
-    image: "${IMAGE_NAMESPACE:-geerlingguy}/docker-${IMAGE_DISTRO:-centos8}-ansible:${IMAGE_TAG:-latest}"
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest
     networks:
       - name: test_docker_network
         ipv4_address: 10.172.0.18
@@ -55,7 +54,7 @@ platforms:
 
   - name: 10.172.0.19
     hostname: etcd03
-    image: "${IMAGE_NAMESPACE:-geerlingguy}/docker-${IMAGE_DISTRO:-centos8}-ansible:${IMAGE_TAG:-latest}"
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest
     networks:
       - name: test_docker_network
         ipv4_address: 10.172.0.19
@@ -75,7 +74,7 @@ platforms:
 
   - name: 10.172.0.20
     hostname: pgnode01
-    image: "${IMAGE_NAMESPACE:-geerlingguy}/docker-${IMAGE_DISTRO:-centos8}-ansible:${IMAGE_TAG:-latest}"
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest
     networks:
       - name: test_docker_network
         ipv4_address: 10.172.0.20
@@ -98,7 +97,7 @@ platforms:
 
   - name: 10.172.0.21
     hostname: pgnode02
-    image: "${IMAGE_NAMESPACE:-geerlingguy}/docker-${IMAGE_DISTRO:-centos8}-ansible:${IMAGE_TAG:-latest}"
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest
     networks:
       - name: test_docker_network
         ipv4_address: 10.172.0.21

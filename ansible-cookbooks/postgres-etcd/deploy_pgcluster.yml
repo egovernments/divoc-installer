@@ -26,20 +26,9 @@
   vars_files:
     - vars/main.yml
     - vars/system.yml
+    - "vars/{{ ansible_os_family }}.yml"
 
   pre_tasks:
-    - name: Include OS-specific variables
-      include_vars: "vars/{{ ansible_os_family }}.yml"
-      when: not ansible_os_family == 'Rocky' and not ansible_os_family == 'AlmaLinux'
-      tags: always
-
-    # For compatibility with Ansible old versions
-    # (support for RockyLinux and AlmaLinux has been added to Ansible 2.11)
-    - name: Include OS-specific variables
-      include_vars: "vars/RedHat.yml"
-      when: ansible_os_family == 'Rocky' or ansible_os_family == 'AlmaLinux'
-      tags: always
-
     - name: Checking Linux distribution
       fail:
         msg: "{{ ansible_distribution }} is not supported"
@@ -117,18 +106,7 @@
   any_errors_fatal: true
   vars_files:
     - vars/main.yml
-  pre_tasks:
-    - name: Include OS-specific variables
-      include_vars: "vars/{{ ansible_os_family }}.yml"
-      when: not ansible_os_family == 'Rocky' and not ansible_os_family == 'AlmaLinux'
-      tags: always
-
-    # For compatibility with Ansible old versions
-    # (support for RockyLinux and AlmaLinux has been added to Ansible 2.11)
-    - name: Include OS-specific variables
-      include_vars: "vars/RedHat.yml"
-      when: ansible_os_family == 'Rocky' or ansible_os_family == 'AlmaLinux'
-      tags: always
+    - "vars/{{ ansible_os_family }}.yml"
   roles:
     - role: pgbackrest
       when: pgbackrest_install|bool
@@ -141,26 +119,11 @@
   vars_files:
     - vars/main.yml
     - vars/system.yml
-
-  pre_tasks:
-    - name: Include OS-specific variables
-      include_vars: "vars/{{ ansible_os_family }}.yml"
-      when: not ansible_os_family == 'Rocky' and not ansible_os_family == 'AlmaLinux'
-      tags: always
-
-    # For compatibility with Ansible old versions
-    # (support for RockyLinux and AlmaLinux has been added to Ansible 2.11)
-    - name: Include OS-specific variables
-      include_vars: "vars/RedHat.yml"
-      when: ansible_os_family == 'Rocky' or ansible_os_family == 'AlmaLinux'
-      tags: always
+    - "vars/{{ ansible_os_family }}.yml"
 
   roles:
     - role: wal-g
       when: wal_g_install|bool
-
-    - role: pg_probackup
-      when: pg_probackup_install|bool
 
     - role: pgbouncer
       when: pgbouncer_install|bool
@@ -183,9 +146,6 @@
 
     - role: pgbouncer/userlist
       when: pgbouncer_install|bool and pgbouncer_generate_userlist|bool
-
-    - role: netdata
-      when: netdata_install is defined and netdata_install|bool
 
     # finish (info)
     - role: deploy-finish

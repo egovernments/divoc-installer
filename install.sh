@@ -33,14 +33,14 @@ installDependencies()
         add-apt-repository -qq --yes --update ppa:ansible/ansible
         apt -qq install ansible
     fi
-    # echo "Enter path to inventory file: "
-    # read -r INVENTORY_FILE
-    ansible-playbook -vvv -i ./inventory ./ansible-cookbooks/docker-registry/playbook.yml
-    ansible-playbook -vvv -i ./inventory ./ansible-cookbooks/elastic-search/playbook.yml
-    ansible-playbook -vvv -i ./inventory ./ansible-cookbooks/redis/playbook.yml
-    ansible-playbook -vvv -i ./inventory ./ansible-cookbooks/kafka-zookeeper/playbook.yml
-    ansible-playbook -vvv -i ./inventory ./ansible-cookbooks/kubernetes/playbook.yml
-    ansible-playbook -vvv -i ./inventory ./ansible-cookbooks/postgres-etcd/playbook.yml
+#     echo "Enter path to inventory file: "
+#     read -r INVENTORY_FILE
+#    ansible-playbook -vvv -i ./inventory ./ansible-cookbooks/docker-registry/playbook.yml
+#    ansible-playbook -vvv -i ./inventory ./ansible-cookbooks/elastic-search/playbook.yml
+#    ansible-playbook -vvv -i ./inventory ./ansible-cookbooks/redis/playbook.yml
+#    ansible-playbook -vvv -i ./inventory ./ansible-cookbooks/kafka-zookeeper/playbook.yml
+#    ansible-playbook -vvv -i ./inventory ./ansible-cookbooks/kubernetes/playbook.yml
+    ansible-playbook  -i ./inventory ./ansible-cookbooks/postgres-etcd/etcd_cluster.yml
 }
 
 installDependencies
