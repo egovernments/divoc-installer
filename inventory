@@ -35,9 +35,9 @@ slave_redis_port=6380
 ; Redis Inventory end
 
 [kafka]
-10.0.13.78 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu broker_id=1 adv_ip=10.0.13.78
-10.0.9.169 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu broker_id=2 adv_ip=10.0.9.169
-10.0.11.233 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu broker_id=3 adv_ip=10.0.11.233
+13.235.244.251 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu broker_id=1 adv_ip=10.0.13.78
+65.1.114.226 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu broker_id=2 adv_ip=10.0.9.169
+13.127.108.73 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu broker_id=3 adv_ip=10.0.11.233
 
 ; Kubernetes Inventory start
 [kube_control_plane]
