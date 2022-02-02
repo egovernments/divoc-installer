@@ -41,13 +41,14 @@ slave_redis_port=6380
 
 ; Kubernetes Inventory start
 [kube_control_plane]
-13.7.58.82  ansible_ssh_private_key_file=~/.ssh/divoc.pem ansible_ssh_user=ubuntu broker_id=1 adv_ip=172.31.27.143
+10.0.13.78 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu broker_id=1
 
 [etcd]
-13.7.58.82  ansible_ssh_private_key_file=~/.ssh/divoc.pem ansible_ssh_user=ubuntu broker_id=1 adv_ip=172.31.27.143
+10.0.13.78 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
 
 [kube_node]
-13.7.58.82  ansible_ssh_private_key_file=~/.ssh/divoc.pem ansible_ssh_user=ubuntu broker_id=1 adv_ip=172.31.27.143
+10.0.9.169 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
+10.0.11.233 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
 
 [k8s_cluster:children]
 kube_node
