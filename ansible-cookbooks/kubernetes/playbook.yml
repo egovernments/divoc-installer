@@ -1,0 +1,12 @@
+---
+- name: Initialize
+  import_playbook: initial.yml
+
+- name: Install Dependencies
+  import_playbook: kube-dependencies.yml
+
+- name: Setup Master node
+  import_playbook: master.yml
+
+- name: Setup Worker nodes
+  import_playbook: workers.yml

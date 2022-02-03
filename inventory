@@ -45,22 +45,15 @@ knode1 ansible_host=10.0.13.78 ansible_ssh_private_key_file=./divoc-perf.pem ans
 knode2 ansible_host=10.0.9.169 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
 knode3 ansible_host=10.0.11.233 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
 
-[kube_control_plane]
+[kmasters]
 knode1
 
-[etcd]
-knode1
-
-[kube_node]
+[kworkers]
 knode2
 knode3
 
-[calico_rr]
-
-[k8s_cluster:children]
-kube_control_plane
-kube_node
-calico_rr
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
 
 ; Kubernetes Inventory end
 
