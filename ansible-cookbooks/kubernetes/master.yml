@@ -3,10 +3,16 @@
   become: yes
   tasks:
     - name: initialize the cluster
-      shell: kubeadm init --pod-network-cidr=10.244.0.0/16
+      shell: sudo kubeadm init --pod-network-cidr=10.244.0.0/16
       args:
         chdir: $HOME
         creates: cluster_initialized.txt
+
+    - name: copies kubelet.conf to admin.conf
+      copy:
+        src: /etc/kubernetes/kubelet.conf
+        dest: /etc/kubernetes/admin.conf
+        remote_src: yes
 
     - name: create .kube directory
       become: yes
