@@ -11,7 +11,7 @@
       become: yes
       become_user: kubeuser
       file:
-        path: $HOME/.kube
+        path: /home/kubeuser/.kube
         state: directory
         mode: 0755
 
