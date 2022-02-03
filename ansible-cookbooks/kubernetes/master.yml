@@ -2,8 +2,6 @@
   become: yes
   tasks:
     - name: initialize the cluster
-      become: yes
-      become_user: root
       shell: kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=all >> cluster_initialized.txt
       args:
         chdir: $HOME
@@ -13,8 +11,6 @@
       shell: mkdir -p -m755 /home/ubuntu/.kube
 
     - name: copy admin.conf to user's kube config
-      become: yes
-      become_user: root
       copy:
         src: /etc/kubernetes/kubelet.conf
         dest: /home/ubuntu/.kube/config
@@ -22,8 +18,6 @@
         owner: ubuntu
 
     - name: install Pod network
-      become: yes
-      become_user: root
       shell: sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml >> pod_network_setup.txt
       args:
         chdir: $HOME
