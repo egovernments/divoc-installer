@@ -1,4 +1,4 @@
-- hosts: knode*
+- hosts: "kmasters, kworkers"
   become: yes
   tasks:
     - name: create the 'kubeuser' user
