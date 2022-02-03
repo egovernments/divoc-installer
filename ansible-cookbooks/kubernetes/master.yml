@@ -3,8 +3,7 @@
   become: yes
   tasks:
     - name: initialize the cluster
-      shell: |
-        sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+      shell: kubeadm init --pod-network-cidr=10.244.0.0/16
       args:
         chdir: $HOME
         creates: cluster_initialized.txt
