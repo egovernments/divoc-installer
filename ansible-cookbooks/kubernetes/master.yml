@@ -8,12 +8,7 @@
         creates: cluster_initialized.txt
 
     - name: create .kube directory
-      become: yes
-      become_user: kubeuser
-      file:
-        path: /home/kubeuser/.kube
-        state: directory
-        mode: 0755
+      shell: sudo mkdir -p -m755 /home/kubeuser/.kube
 
     - name: copy admin.conf to user's kube config
       copy:
