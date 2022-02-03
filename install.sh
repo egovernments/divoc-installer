@@ -1,7 +1,7 @@
 #!/bin/sh
 
 SRC_CODE="./src_code"
-DEFAULT_INVENTORY_PATH ="./inventory"
+DEFAULT_INVENTORY_PATH="./inventory"
 
 cloneRepo()
 {
