@@ -1,30 +1,23 @@
----
 - hosts: kmasters
   become: yes
   tasks:
     - name: initialize the cluster
-      shell: sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors all
+      shell: kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
       args:
         chdir: $HOME
         creates: cluster_initialized.txt
-
-    - name: copies kubelet.conf to admin.conf
-      copy:
-        src: /etc/kubernetes/kubelet.conf
-        dest: /etc/kubernetes/admin.conf
-        remote_src: yes
 
     - name: create .kube directory
       become: yes
       become_user: kubeuser
       file:
-        path: /home/kubeuser/.kube
+        path: $HOME/.kube
         state: directory
         mode: 0755
 
-    - name: copies admin.conf to user's kube config
+    - name: copy admin.conf to user's kube config
       copy:
-        src: /etc/kubernetes/admin.conf
+        src: /etc/kubernetes/kubelet.conf
         dest: /home/kubeuser/.kube/config
         remote_src: yes
         owner: kubeuser
@@ -32,20 +25,7 @@
     - name: install Pod network
       become: yes
       become_user: kubeuser
-      shell: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+      shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml >> pod_network_setup.txt
       args:
         chdir: $HOME
-
-    - name: Get the token for joining the worker nodes
-      become: yes
-      become_user: kubeuser
-      shell: kubeadm token create  --print-join-command
-      register: kubernetes_join_command
-
-    - name: Get the output of the Kubernetes join commmand
-      debug:
-        msg: "{{ kubernetes_join_command.stdout }}"
-
-    - name: Copy join command to local file.
-      become: yes
-      local_action: copy content="{{ kubernetes_join_command.stdout_lines[0] }}" dest="/tmp/kubernetes_join_command" mode=0777
+        creates: pod_network_setup.txt
