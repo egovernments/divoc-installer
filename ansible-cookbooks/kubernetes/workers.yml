@@ -3,7 +3,7 @@
   gather_facts: false
   tasks:
     - name: get join command
-      shell: sudo kubeadm token create --print-join-command
+      shell: kubeadm token create --print-join-command
       register: join_command_raw
 
     - name: set join command
