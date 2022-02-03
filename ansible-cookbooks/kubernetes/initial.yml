@@ -13,4 +13,4 @@
     - name: set up authorized keys for the ubuntu user
       authorized_key: user=kubeuser key="{{item}}"
       with_file:
-        - ~/.ssh/id_rsa.pub
+        - "{{ kube_access_key }}"
