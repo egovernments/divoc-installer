@@ -1,7 +1,4 @@
 ---
-- name: Initialize
-  import_playbook: initial.yml
-
 - name: Install Dependencies
   import_playbook: kube-dependencies.yml
 
