@@ -2,7 +2,7 @@
   become: yes
   tasks:
     - name: initialize the cluster
-      shell: kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=all >> cluster_initialized.txt
+      shell: sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=all >> cluster_initialized.txt
       args:
         chdir: $HOME
         creates: cluster_initialized.txt
@@ -18,7 +18,7 @@
         owner: ubuntu
 
     - name: install Pod network
-      shell: sudo kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml >> pod_network_setup.txt
+      shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/a70459be0084506e4ec919aa1c114638878db11b/Documentation/kube-flannel.yml >> pod_network_setup.txt
       args:
         chdir: $HOME
         creates: pod_network_setup.txt

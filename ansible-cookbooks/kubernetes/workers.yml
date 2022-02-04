@@ -1,6 +1,5 @@
 - hosts: kmasters
   become: yes
-  become_user: root
   gather_facts: false
   tasks:
     - name: get join command
@@ -13,8 +12,6 @@
 
 
 - hosts: kworkers
-  become: yes
-  become_user: root
   tasks:
     - name: join cluster
       shell: "{{ hostvars['kmasters'].join_command }} >> node_joined.txt"

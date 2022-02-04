@@ -10,23 +10,6 @@ standalone1 ansible_ssh_host=13.234.32.156 ansible_ssh_private_key_file=./divoc-
 [redis_nodes]
 redisnode1 ansible_ssh_host=13.234.32.156 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
 
-[master_nodes]
-masternode1 ansible_ssh_host=23.92.28.137 master_id=0
-masternode2 ansible_ssh_host=173.230.142.155 master_id=1
-masternode3 ansible_ssh_host=50.116.35.169 master_id=2
-
-[slave_nodes]
-slavenode1 ansible_ssh_host=23.92.28.137 master_id=2
-slavenode2 ansible_ssh_host=173.230.142.155 master_id=0
-slavenode3 ansible_ssh_host=50.116.35.169 master_id=1
-
-[redis_cluster:children]
-master_nodes
-slave_nodes
-
-[cluster_formation_node]
-masternode1
-
 [redis_cluster:vars]
 redis_port=6379
 master_redis_port=6379
@@ -41,9 +24,9 @@ slave_redis_port=6380
 
 ; Kubernetes Inventory start
 
-knode1 ansible_host=10.0.12.93 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
-knode2 ansible_host=10.0.12.26 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
-knode3 ansible_host=10.0.9.211 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
+node1 ansible_host=10.0.12.93 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
+node2 ansible_host=10.0.12.26 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
+node3 ansible_host=10.0.9.211 ansible_ssh_private_key_file=./divoc-perf.pem ansible_ssh_user=ubuntu
 
 [kmasters]
 knode1
