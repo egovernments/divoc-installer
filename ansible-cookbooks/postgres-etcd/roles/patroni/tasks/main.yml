@@ -807,7 +807,7 @@
       register: result
       until: result.status == 200
       retries: 10
-      delay: 2
+      delay: 6
   when: is_master == "true"
   tags: patroni, patroni_start_master, point_in_time_recovery
 
