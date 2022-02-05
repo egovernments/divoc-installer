@@ -1,7 +1,7 @@
 #!/bin/sh
 
 SRC_CODE="./src_code"
-DEFAULT_INVENTORY_PATH="./inventory"
+INVENTORY_FILE="./inventory.ini"
 
 cloneRepo()
 {
@@ -35,15 +35,12 @@ installDependencies()
         add-apt-repository -qq --yes --update ppa:ansible/ansible
         apt -qq install ansible
     fi
-    echo "Enter path to inventory file: "
-    read -r INVENTORY_FILE
-    INVENTORY_FILE=${INVENTORY_FILE:-DEFAULT_INVENTORY_PATH}
 #    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/docker-registry/playbook.yml
 #    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/elastic-search/playbook.yml
 #    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/redis/playbook.yml
 #    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/kafka-zookeeper/playbook.yml
-    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvv -i "$INVENTORY_FILE" ./ansible-cookbooks/kubernetes/playbook.yml
-#    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook  -i "$INVENTORY_FILE" ./ansible-cookbooks/postgres-etcd/deploy_pgcluster.yml
+    # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/kubernetes/playbook.yml
+   ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook  -i "$INVENTORY_FILE" ./ansible-cookbooks/postgres-etcd/deploy_pgcluster.yml
 }
 
 installDependencies
