@@ -40,7 +40,7 @@ installDependencies()
 #    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/redis/playbook.yml
 #    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/kafka-zookeeper/playbook.yml
     # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/kubernetes/playbook.yml
-   ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook  -i "$INVENTORY_FILE" ./ansible-cookbooks/postgres-etcd/deploy_pgcluster.yml
+   ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -vvv  -i "$INVENTORY_FILE" ./ansible-cookbooks/postgres-etcd/deploy_pgcluster.yml
 }
 
 installDependencies
