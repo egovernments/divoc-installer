@@ -1,22 +1,12 @@
 ---
-- name: Start Redis Service
-  systemd:
-    name: redis.service
-    enabled: yes
+- name: "restart redis"
+  service:
+    name: "{{ redis_service_name }}"
     state: restarted
+  when: redis_as_service
 
-- name: Start Redis Master Service
-  systemd:
-    name: redis-master.service
-    enabled: yes
+- name: "restart sentinel"
+  service:
+    name: sentinel_{{ redis_sentinel_port }}
     state: restarted
-
-- name: Start Redis Slave Service
-  systemd:
-    name: redis-slave.service
-    enabled: yes
-    state: restarted
-
-- name: Reload systemd daemon
-  systemd:
-    daemon_reload: yes
+  when: redis_as_service

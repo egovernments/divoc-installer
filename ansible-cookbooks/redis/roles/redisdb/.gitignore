@@ -1,2 +1,5 @@
-site.yml
-hosts
+*.swp
+.kitchen/
+.bundle
+.vagrant
+*.retry

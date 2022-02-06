@@ -1,20 +1,25 @@
 ---
 galaxy_info:
-  author: Abhishek Dubey
-  description: Ansible role to setup a production grade redis cluster/server
-  company: OpsTree Solutions
-
+  author: David Wittman
+  description: Highly configurable role to install Redis and Redis Sentinel from source
+  min_ansible_version: 2.4.0
   license: MIT
-
-  min_ansible_version: 2.8
-
   platforms:
-    - name: EL
-      versions:
-        - 7
     - name: Ubuntu
       versions:
-        - xenial
-        - bionic
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: EL
+      versions:
+        - 6
+    - name: SLES
+      versions:
+        - 11
+        - 12
+  galaxy_tags:
+    - database
+    - nosql
 
-  galaxy_tags: ["redis", "ansible", "opstree"]
+dependencies: []

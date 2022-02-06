@@ -1,10 +1,12 @@
 ---
-# - hosts: redis_nodes
-#   become: true
-#   roles:
-#     - redisdb
+- name: configure the master redis server
+  hosts: redis-master
+  roles:
+    - redisdb
 
-- hosts: redis_nodes
-  become: true
+- name: configure redis slaves
+  hosts: redis-slave
+  vars:
+    - redis_slaveof: "{{ hostvars['redis-master.example.com'].ansible_eth1.ipv4.address }} {{ redis_port }}"
   roles:
     - redisdb
