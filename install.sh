@@ -22,6 +22,22 @@ cloneRepo()
     echo "Source Code cloned successfully"
 }
 
+installKubectl()
+{
+    if command -v kubectl
+    then
+        echo "Kubectl exists on your system"
+    else
+        echo "Installing Kubectl"
+        apt -qq -y update
+        apt install -y apt-transport-https ca-certificates curl
+        curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+        apt -qq -y update
+        apt -qq -y install kubectl
+    fi
+}
+
 installDependencies()
 {
     if command -v ansible-playbook
@@ -39,8 +55,9 @@ installDependencies()
 #    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/elastic-search/playbook.yml
 #    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/redis/playbook.yml
     # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/kafka-zookeeper/playbook.yml
-    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root ./ansible-cookbooks/kubernetes/cluster.yml
+    # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root ./ansible-cookbooks/kubernetes/cluster.yml
 #    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/postgres-etcd/deploy_pgcluster.yml
 }
 
 installDependencies
+installKubectl
