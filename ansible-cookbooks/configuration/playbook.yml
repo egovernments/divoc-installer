@@ -12,3 +12,15 @@
 
     - name: 'Copy key files for kubelet'
       shell: cp /var/lib/kubelet/pki/kubelet-client-current.pem /home/ubuntu/.kube/kubelet-client-current.pem
+
+    - name: 'Change permissions for the config file'
+      file:
+        path: '/home/ubuntu/.kube/config'
+        owner: ubuntu
+        mode: 0755
+
+    - name: 'Change permissions for the key file'
+      file:
+        path: '/home/ubuntu/.kube/kubelet-client-current.pem'
+        owner: ubuntu
+        mode: 0755
