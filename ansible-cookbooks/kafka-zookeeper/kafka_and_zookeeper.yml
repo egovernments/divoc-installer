@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   pre_tasks:
-    - raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal python-zipstream)
+    - raw: test -e /usr/bin/python || (apt -y update && apt install -y python3 python-zipstream)
 - name: Install zookeeper
   hosts: kafka
   become: true
