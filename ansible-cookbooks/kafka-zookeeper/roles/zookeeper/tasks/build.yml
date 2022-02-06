@@ -22,7 +22,7 @@
 
 - name: Unpack Zookeeper
   become: yes
-  become_user: "{{ sansible_zookeeper_user }}"
+  become_user: root
   unarchive:
     copy: no
     creates: "/home/{{ sansible_zookeeper_user }}/apache-zookeeper-{{ sansible_zookeeper_version }}-bin"
@@ -31,7 +31,7 @@
 
 - name: Link to Zookeeper Directory
   become: yes
-  become_user: "{{ sansible_zookeeper_user }}"
+  become_user: root
   file:
     dest: "{{ sansible_zookeeper_install_dir }}"
     src: "/home/{{ sansible_zookeeper_user }}/apache-zookeeper-{{ sansible_zookeeper_version }}-bin"
