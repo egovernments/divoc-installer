@@ -1,7 +1,5 @@
 ---
 - name: "restart redis"
-  become: true
-  become_user: root
   service:
     name: "{{ redis_service_name }}"
     state: restarted
