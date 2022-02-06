@@ -69,10 +69,10 @@ etcd:
 {% endif %}
     serverCertSANs:
 {% for san in etcd_cert_alt_names %}
-      - {{ san }}
+      - "{{ san }}"
 {% endfor %}
 {% for san in etcd_cert_alt_ips %}
-      - {{ san }}
+      - "{{ san }}"
 {% endfor %}
     peerCertSANs:
 {% for san in etcd_cert_alt_names %}
@@ -264,7 +264,7 @@ apiServer:
 {% endif %}
   certSANs:
 {% for san in apiserver_sans %}
-  - {{ san }}
+  - "{{ san }}"
 {% endfor %}
   timeoutForControlPlane: 5m0s
 controllerManager:
