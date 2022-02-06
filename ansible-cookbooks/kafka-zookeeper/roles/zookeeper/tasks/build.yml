@@ -1,7 +1,8 @@
 ---
 
 - name: Create Zookeeper directories
-  become: 'yes'
+  become: yes
+  become_user: root
   file:
     group: "{{ sansible_zookeeper_group }}"
     owner: "{{ sansible_zookeeper_user }}"
@@ -14,14 +15,14 @@
     - "{{ sansible_zookeeper_log_dir }}"
 
 - name: Download ZooKeeper
-  become: 'yes'
+  become: yes
   become_user: root
   get_url:
     url: "{{ sansible_zookeeper_download_url }}"
     dest: "/home/{{ sansible_zookeeper_user }}/apache-zookeeper-{{ sansible_zookeeper_version }}.tar.gz"
 
 - name: Unpack Zookeeper
-  become: 'yes'
+  become: yes
   become_user: root
   unarchive:
     copy: no
@@ -30,7 +31,7 @@
     src: "/home/{{ sansible_zookeeper_user }}/apache-zookeeper-{{ sansible_zookeeper_version }}.tar.gz"
 
 - name: Link to Zookeeper Directory
-  become: 'yes'
+  become: yes
   become_user: root
   file:
     dest: "{{ sansible_zookeeper_install_dir }}"
@@ -38,7 +39,8 @@
     state: link
 
 - name: Create Zookeeper service
-  become: 'yes'
+  become: yes
+  become_user: root
   template:
     dest: /etc/init.d/zookeeper
     mode: 0755
@@ -46,20 +48,23 @@
     src: zookeeper_sysv.j2
 
 - name: create systemd service
-  become: 'yes'
+  become: yes
+  become_user: root
   template:
     dest: /etc/systemd/system/zookeeper.service
     mode: 0755
     owner: root
     src: zookeeper.service.j2
 - name: Ensure Kafka is enabled for SystemD
-  become: 'yes'
+  become: yes
+  become_user: root
   systemd:
     daemon_reload: yes
     name: zookeeper
     enabled: yes
 - name: Create zookeeper startup links
-  become: 'yes'
+  become: yes
+  become_user: root
   command: update-rc.d zookeeper defaults
   args:
     creates: "/etc/rc0.d/K??zookeeper"
