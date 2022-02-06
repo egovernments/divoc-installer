@@ -108,6 +108,7 @@
 
 - name: Start Zookeeper service
   become: yes
+  become_user: root
   service:
     enabled: yes
     name: zookeeper
