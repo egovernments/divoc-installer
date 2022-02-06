@@ -1,19 +1,7 @@
 ---
+- name: Reload systemd
+  command: systemctl daemon-reload
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 
-- name: start kafka
-  become: yes
-  service:
-    name: kafka
-    state: started
-
-- name: stop kafka
-  become: yes
-  service:
-    name: kafka
-    state: stopped
-
-- name: restart kafka
-  become: yes
-  service:
-    name: kafka
-    state: restarted
+- name: Restart kafka
+  service: name=kafka-server enabled=yes state=restarted
