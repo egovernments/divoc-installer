@@ -15,7 +15,7 @@
 
 - name: Download ZooKeeper
   become: yes
-  become_user: "{{ sansible_zookeeper_user }}"
+  become_user: root
   get_url:
     url: "{{ sansible_zookeeper_download_url }}"
     dest: "/home/{{ sansible_zookeeper_user }}/apache-zookeeper-{{ sansible_zookeeper_version }}.tar.gz"
