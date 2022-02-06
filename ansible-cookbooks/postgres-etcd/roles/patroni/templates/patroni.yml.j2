@@ -50,6 +50,11 @@ bootstrap:
        recovery_target_timeline: latest
        restore_command: wal-g wal-fetch %f %p
 {% endif %}
+{% if patroni_cluster_bootstrap_method == 'pg_probackup' %}
+  pg_probackup:
+    command: {{ pg_probackup_patroni_cluster_bootstrap_command }}
+    no_params: true
+{% endif %}
   dcs:
     ttl: {{ patroni_ttl |d(30, true) |int }}
     loop_wait: {{ patroni_loop_wait |d(10, true) |int }}
@@ -59,10 +64,20 @@ bootstrap:
     synchronous_mode: {{ synchronous_mode |string |d(false, true) |lower }}
     synchronous_mode_strict: {{ synchronous_mode_strict |string |d(false, true) |lower }}
     synchronous_node_count: {{ synchronous_node_count |d(1, true) |int }}
-    # standby_cluster:
-      # host: 127.0.0.1
-      # port: 1111
-      # primary_slot_name: patroni
+  {% if patroni_standby_cluster.host is defined and patroni_standby_cluster.host | length > 0 %}
+    standby_cluster:
+      host: {{ patroni_standby_cluster.host }}
+      port: {{ patroni_standby_cluster.port }}
+    {% if patroni_standby_cluster.primary_slot_name is defined and patroni_standby_cluster.primary_slot_name | length > 0 %}
+      primary_slot_name: {{ patroni_standby_cluster.primary_slot_name }}
+    {% endif %}
+    {% if patroni_standby_cluster.restore_command is defined and patroni_standby_cluster.restore_command | length > 0 %}
+      restore_command: {{ patroni_standby_cluster.restore_command }}
+    {% endif %}
+    {% if patroni_standby_cluster.recovery_min_apply_delay is defined and patroni_standby_cluster.recovery_min_apply_delay | length > 0 %}
+      recovery_min_apply_delay: {{ patroni_standby_cluster.recovery_min_apply_delay }}
+    {% endif %}
+  {% endif %}
     postgresql:
       use_pg_rewind: {{ patroni_postgresql_use_pg_rewind |string |d(false, true) |lower }}
       use_slots: true
@@ -92,9 +107,9 @@ bootstrap:
 
 postgresql:
 {% if not with_haproxy_load_balancing|bool and not pgbouncer_install|bool and (cluster_vip is defined and cluster_vip | length > 0) %}
-  listen: *,{{ hostvars[inventory_hostname]['inventory_hostname'] }},{{ cluster_vip }},127.0.0.1:{{ postgresql_port }}
+  listen: {{ hostvars[inventory_hostname]['inventory_hostname'] }},{{ cluster_vip }},127.0.0.1:{{ postgresql_port }}
 {% else %}
-  listen: *,{{ hostvars[inventory_hostname]['inventory_hostname'] }},127.0.0.1:{{ postgresql_port }}
+  listen: {{ hostvars[inventory_hostname]['inventory_hostname'] }},127.0.0.1:{{ postgresql_port }}
 {% endif %}
   connect_address: {{ hostvars[inventory_hostname]['inventory_hostname'] }}:{{ postgresql_port }}
   use_unix_socket: true
@@ -160,6 +175,12 @@ postgresql:
     {% if postgresql_version is version('10', '>=') and postgresql_wal_dir is defined and postgresql_wal_dir | length > 0 %}
     waldir: {{ postgresql_wal_dir }}
     {% endif %}
+  {% endif %}
+  {% if 'pg_probackup' in patroni_create_replica_methods %}
+  pg_probackup:
+    {% for item in pg_probackup %}
+    {{ item.option }}: {{ item.value }}
+    {% endfor %}
   {% endif %}
 {% else %}
     - basebackup

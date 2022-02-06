@@ -807,7 +807,8 @@
       register: result
       until: result.status == 200
       retries: 10
-      delay: 6
+      delay: 2
+      when: patroni_standby_cluster.host is not defined or patroni_standby_cluster.host | length < 1
   when: is_master == "true"
   tags: patroni, patroni_start_master, point_in_time_recovery
 
