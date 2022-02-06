@@ -72,6 +72,7 @@ configureKubectl()
     mkdir -p /var/lib/kubelet/pki
     scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":~/.kube/config ~/.kube/config
     scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":~/.kube/kubelet-client-current.pem /var/lib/kubelet/pki/kubelet-client-current.pem
+    sed '5s/127.0.0.1/192.168.0.11/1' ~/.kube/config
 
 }
 
