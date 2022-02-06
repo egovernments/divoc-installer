@@ -12,10 +12,8 @@
   unarchive: src=/opt/zookeeper-{{ zookeeper_version }}.tar.gz dest=/opt/ copy=no creates=/opt/zookeeper-{{ zookeeper_version }}
 
 - name: Symlink install directory
-  file: src=/opt/zookeeper-{{ zookeeper_version }} path=/opt/zookeeper state=link force=yes
+  file: src=/opt/zookeeper-{{ zookeeper_version }} path=/opt/zookeeper state=link force=yes owner=root group=root
 
-- name: Set permissions to Zookeeper folder
-  file: path=/opt/zookeeper/ owner=root group=root recurse=yes
 
 - name: Create Zookeeper data directory
   file: path={{ zookeeper_data_dir }} state=directory owner={{ zookeeper_user }} group={{ zookeeper_group }}
