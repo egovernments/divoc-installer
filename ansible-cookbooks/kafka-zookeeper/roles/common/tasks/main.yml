@@ -35,10 +35,9 @@
 
 - name: Ensure required packages are installed (apt)
   apt:
-    name: "{{ item }}"
+    name: "{{ packages|default([]) }}"
     update_cache: yes
     state: installed
-  with_items: "{{ packages|default([]) }}"
   when: ansible_os_family == "Debian"
 
 - name: Upgrade all packages (yum)
