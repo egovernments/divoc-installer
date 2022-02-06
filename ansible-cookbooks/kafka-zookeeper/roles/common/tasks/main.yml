@@ -37,7 +37,7 @@
   apt:
     name: "{{ packages|default([]) }}"
     update_cache: yes
-    state: installed
+    state: latest
   when: ansible_os_family == "Debian"
 
 - name: Upgrade all packages (yum)
