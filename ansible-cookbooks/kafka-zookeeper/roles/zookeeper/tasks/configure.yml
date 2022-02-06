@@ -2,7 +2,7 @@
 
 - name: Copy AWS autodiscover script
   become: yes
-  become_user: zookeeper
+  become_user: root
   copy:
     src: aws_cluster_autodiscover
     dest: "/home/{{ sansible_zookeeper_user }}/bin/aws_cluster_autodiscover"
@@ -13,7 +13,7 @@
 
 - name: Run AWS autodiscover script and grab ID
   become: yes
-  become_user: zookeeper
+  become_user: root
   command: "./aws_cluster_autodiscover {{ sansible_zookeeper_hosts | join(',') }} {{ sansible_zookeeper_aws_cluster_autodiscover_r53_zone_id }} \"{{ sansible_zookeeper_aws_cluster_autodiscover_lookup_filter }}\" {{ sansible_zookeeper_aws_cluster_autodiscover_id_tag_name }}"
   args:
     chdir: "/home/{{ sansible_zookeeper_user }}/bin"
@@ -69,7 +69,7 @@
 
 - name: Setup Zookeeper environment config
   become: yes
-  become_user: zookeeper
+  become_user: root
   template:
     dest: "{{ sansible_zookeeper_conf_dir }}/environment"
     mode: 0644
@@ -79,7 +79,7 @@
 
 - name: Setup myid
   become: yes
-  become_user: zookeeper
+  become_user: root
   template:
     dest: "{{ sansible_zookeeper_data_dir }}/myid"
     src: myid.j2
@@ -88,7 +88,7 @@
 
 - name: Setup zoo.cfg file
   become: yes
-  become_user: zookeeper
+  become_user: root
   template:
     dest: "{{ sansible_zookeeper_conf_dir }}/zoo.cfg"
     mode: 0644
@@ -98,7 +98,7 @@
 
 - name: Create Zookeeper log4j config
   become: yes
-  become_user: zookeeper
+  become_user: root
   template:
     dest: "{{ sansible_zookeeper_conf_dir }}/log4j.properties"
     mode: 0644
@@ -124,7 +124,7 @@
 
 - name: Copy zookeeper check script
   become: yes
-  become_user: zookeeper
+  become_user: root
   copy:
     src: zookeeper_check
     dest: "/home/{{ sansible_zookeeper_user }}/bin/zookeeper_check"
@@ -134,7 +134,7 @@
 
 - name: Run zookeeper check script
   become: yes
-  become_user: zookeeper
+  become_user: root
   command: "/home/{{ sansible_zookeeper_user }}/bin/zookeeper_check"
   async: 7200
   poll: 0

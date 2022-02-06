@@ -15,14 +15,14 @@
 
 - name: Download ZooKeeper
   become: yes
-  become_user: zookeeper
+  become_user: root
   get_url:
     url: "{{ sansible_zookeeper_download_url }}"
     dest: "/home/{{ sansible_zookeeper_user }}/apache-zookeeper-{{ sansible_zookeeper_version }}.tar.gz"
 
 - name: Unpack Zookeeper
   become: yes
-  become_user: zookeeper
+  become_user: root
   unarchive:
     copy: no
     creates: "/home/{{ sansible_zookeeper_user }}/apache-zookeeper-{{ sansible_zookeeper_version }}-bin"
@@ -31,7 +31,7 @@
 
 - name: Link to Zookeeper Directory
   become: yes
-  become_user: zookeeper
+  become_user: root
   file:
     dest: "{{ sansible_zookeeper_install_dir }}"
     src: "/home/{{ sansible_zookeeper_user }}/apache-zookeeper-{{ sansible_zookeeper_version }}-bin"
