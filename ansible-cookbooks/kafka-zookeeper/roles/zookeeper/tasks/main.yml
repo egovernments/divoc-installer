@@ -44,6 +44,9 @@
 
 - meta: flush_handlers
 
+- name: Reload systemd
+  command: systemctl daemon-reload
+
 - name: Make sure Zookeeper is running
   service: name=zookeeper-server enabled=yes state=started
 
