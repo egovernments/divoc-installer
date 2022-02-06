@@ -1,6 +1,6 @@
 packages:
   - default-jdk
-  - python-simplejson
+  - python3-simplejson
   - man-db
   - vim
   - sysstat
