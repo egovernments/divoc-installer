@@ -41,7 +41,7 @@ install -d -m 0755 -o {{ zookeeper_user }} -g {{ zookeeper_group }} /var/run/zoo
 DODTIME=3
 
 export ZOOPIDFILE=${PID_FILE}
-export ZOOKEEPER_HOME=${ZOOKEEPER_HOME:-/opt/zookeeper}
+export ZOOKEEPER_HOME=${ZOOKEEPER_HOME:-/opt/apache-zookeeper-{{ zookeeper_version }}}
 export ZOOKEEPER_CONF=${ZOOKEEPER_CONF:-{{ zookeeper_conf_dir }}}
 export ZOOCFGDIR=${ZOOCFGDIR:-$ZOOKEEPER_CONF}
 export CLASSPATH=$CLASSPATH:$ZOOKEEPER_CONF:$ZOOKEEPER_HOME/*:$ZOOKEEPER_HOME/lib/*
