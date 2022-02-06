@@ -1,0 +1,14 @@
+---
+
+- name: 'Configure Kubectl on kube_control_plane'
+  hosts: kube_control_plane
+  become: true
+  tasks:
+    - name: 'Create a directory for kube config'
+      shell: mkdir -p /home/ubuntu/.kube
+    
+    - name: 'Copy kube config file'
+      shell: cp /etc/kubernetes/kubelet.conf /home/ubuntu/.kube/config
+
+    - name: 'Copy key files for kubelet'
+      shell: cp /var/lib/kubelet/pki/kubelet-client-current.pem /home/ubuntu/.kube/kubelet-client-current.pem

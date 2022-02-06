@@ -41,6 +41,8 @@ installDependencies()
     # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/kafka-zookeeper/playbook.yml
     # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root ./ansible-cookbooks/kubernetes/cluster.yml
 #    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/postgres-etcd/deploy_pgcluster.yml
+
+   ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root ./ansible-cookbooks/configuration/playbook.yml
 }
 
 
@@ -68,9 +70,9 @@ configureKubectl()
     read -r KUBE_NODE_KEY_PATH
     mkdir -p ~/.kube
     mkdir -p /var/lib/kubelet/pki
-    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":/etc/kubernetes/kubelet.conf ~/.kube/config
-    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":/var/lib/kubelet/pki/kubelet-client-current.pem /var/lib/kubelet/pki/kubelet-client-current.pem
-    
+    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":~/.kube/config ~/.kube/config
+    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":~/.kube/kubelet-client-current.pem /var/lib/kubelet/pki/kubelet-client-current.pem
+
 }
 
 installDependencies
