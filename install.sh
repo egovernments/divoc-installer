@@ -22,22 +22,6 @@ cloneRepo()
     echo "Source Code cloned successfully"
 }
 
-installKubectl()
-{
-    if command -v kubectl
-    then
-        echo "Kubectl exists on your system"
-    else
-        echo "Installing Kubectl"
-        apt -qq -y update
-        apt install -y apt-transport-https ca-certificates curl
-        curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-        echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-        apt -qq -y update
-        apt -qq -y install kubectl
-    fi
-}
-
 installDependencies()
 {
     if command -v ansible-playbook
@@ -59,5 +43,36 @@ installDependencies()
 #    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/postgres-etcd/deploy_pgcluster.yml
 }
 
+
+installKubectl()
+{
+    if command -v kubectl
+    then
+        echo "Kubectl exists on your system"
+    else
+        echo "Installing Kubectl"
+        apt -qq -y update
+        apt install -y apt-transport-https ca-certificates curl
+        curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+        apt -qq -y update
+        apt -qq -y install kubectl
+    fi
+}
+
+configureKubectl()
+{
+    echo "Enter the IP Address of the Kubernetes master node / control plane: "
+    read -r KUBE_NODE
+    echo "Enter path to the private key to access the Kubernetes master node / control plane"
+    read -r KUBE_NODE_KEY_PATH
+    mkdir -p ~/.kube
+    mkdir -p /var/lib/kubelet/pki
+    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":/etc/kubernetes/kubelet.conf ~/.kube/config
+    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":/var/lib/kubelet/pki/kubelet-client-current.pem /var/lib/kubelet/pki/kubelet-client-current.pem
+    
+}
+
 installDependencies
 installKubectl
+configureKubectl
