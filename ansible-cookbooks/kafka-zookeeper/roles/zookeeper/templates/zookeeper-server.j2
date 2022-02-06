@@ -123,7 +123,7 @@ hadoop_stop_pidfile() {
 
 
 start() {
-    su -s /bin/bash zookeeper -c "${DAEMON_SCRIPT} start"
+    su -s /bin/bash zookeeper -c "${DAEMON_SCRIPT} start {{ zookeeper_conf_dir }}/zoo.cfg"
     sleep 5
 }
 stop() {
