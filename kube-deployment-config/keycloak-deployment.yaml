@@ -28,15 +28,15 @@ spec:
           name: keycloak-service
           env:
             - name: DB_ADDR
-              value: divoc-jamaica-1.cmzsabksrd8k.us-east-1.rds.amazonaws.com
+              value: 192.168.0.5
             - name: DB_DATABASE
               value: registry
             - name: DB_PASSWORD
-              value: $5Ymvr8F#UkH
+              value: registry123
             - name: DB_PORT
-              value: "5432"
+              value: "5000"
             - name: DB_USER
-              value: postgres
+              value: registry
             - name: DB_VENDOR
               value: postgres
             - name: KEYCLOAK_PASSWORD
@@ -44,7 +44,7 @@ spec:
             - name: KEYCLOAK_USER
               value: admin
             - name: ENABLE_OTP_MESSAGE
-              value: "true"
+              value: "false"
             - name: KAFKA_BOOTSTRAP_SERVERS
-              value: "192.168.60.105:9092"
+              value: "192.168.0.21:9092,192.168.0.28:9092,192.168.0.30:9092"
       restartPolicy: Always
