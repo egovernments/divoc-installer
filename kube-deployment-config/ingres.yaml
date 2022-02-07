@@ -6,6 +6,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
+  defaultBackend:
+    service:
+      name: keycloak-service
+      port:
+        number: 8080
   rules:
     - http:
         paths:
