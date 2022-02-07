@@ -19,10 +19,6 @@ spec:
       containers:
         - image: dockerhub/nginx:latest
           imagePullPolicy: Always
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "400m"
           name: public-app
           envFrom:
             - configMapRef:

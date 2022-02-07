@@ -109,6 +109,10 @@ deployCodeOnKube()
     kubectl apply -f kube-deployment-config/certificate-api-deployment.yaml -n divoc
     kubectl apply -f kube-deployment-config/certificate-api-service.yaml -n divoc
 
+    # Public  App
+    kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/public-app-service.yaml -n divoc
+
 }
 
 # installDependencies
