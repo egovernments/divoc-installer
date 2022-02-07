@@ -109,9 +109,17 @@ deployCodeOnKube()
     kubectl apply -f kube-deployment-config/certificate-api-deployment.yaml -n divoc
     kubectl apply -f kube-deployment-config/certificate-api-service.yaml -n divoc
 
+    # PORTAL API
+    kubectl apply -f kube-deployment-config/portal-api-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/portal-api-service.yaml -n divoc
+
     # Public  App
     kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc
     kubectl apply -f kube-deployment-config/public-app-service.yaml -n divoc
+
+
+    # Ingres
+    kubectl apply -f kube-deployment-config/ingres.yaml -n divoc
 
 }
 

@@ -18,13 +18,6 @@ spec:
       containers:
         - image: dockerhub/certificate_api:latest
           imagePullPolicy: Always
-          resources:
-            requests:
-              memory: "512Mi"
-              cpu: "600m"
-            limits:
-              memory: "512Mi"
-              cpu: "600m"
           name: portal-api
           envFrom:
             - configMapRef:
