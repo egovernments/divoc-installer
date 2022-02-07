@@ -11,33 +11,49 @@ spec:
         paths:
           - path: /auth/*
             backend:
-              serviceName: keycloak-service
-              servicePort: 8080
+              service:
+                name: keycloak-service
+                port: 
+                  number: 8080
           - path: /divoc/*
             backend:
-              serviceName: vaccination-api
-              servicePort: 8000
+              service:
+                name: vaccination-api
+                port: 
+                  number: 8000
           - path: /certificate/api/*
             backend:
-              serviceName: certificate-api
-              servicePort: 4321
+              service:
+                name: certificate-api
+                port: 
+                  number: 4321
           - path: /cert/*
             backend:
-              serviceName: digilocker-support-api
-              servicePort: 8003
+              service: 
+                name: digilocker-support-api
+                port: 
+                  number: 8003
           - path: /divoc/api/citizen/*
             backend:
-             serviceName: registration-api
-             servicePort: 8002
+              service: 
+                name: registration-api
+                port: 
+                  number: 8002
           - path: /divoc/admin/*
             backend:
-              serviceName: portal-api
-              servicePort: 8001
+              service: 
+                name: portal-api
+                port: 
+                  number: 8001
           - path: /config/*
             backend:
-              serviceName: flagr
-              servicePort: 18000
+              service:
+                name: flagr
+                port: 
+                  number: 18000
           - path: /*
             backend:
-              serviceName: public-app
-              servicePort: 3000
+              service: 
+                name: public-app
+                port: 
+                  number: 3000
