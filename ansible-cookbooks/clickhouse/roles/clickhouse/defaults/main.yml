@@ -26,9 +26,12 @@ clickhouse_profiles_default:
 clickhouse_profiles_custom: {}
 
 clickhouse_listen_host_default:
-  - "::"
+  - "::/1"
+  - "127.0.0.1"
+  - "localhost"
 
-clickhouse_listen_host_custom: []
+clickhouse_listen_host_custom:
+  - "::"
 
 clickhouse_listen_host: "{{ clickhouse_listen_host_default + clickhouse_listen_host_custom }}"
 
@@ -42,6 +45,9 @@ clickhouse_tcp_secure_port: 9440
 clickhouse_interserver_http: 9009
 
 clickhouse_networks_default:
+  - "::/1"
+  - "127.0.0.1"
+  - "localhost"
   - "::"
 
 clickhouse_users_default:
