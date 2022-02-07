@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: divoc
+  labels:
+    k8s-app: public-app
+  name: public-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: public-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        k8s-app: public-app
+    spec:
+      containers:
+        - image: dockerhub/nginx:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "400m"
+          name: public-app
+          envFrom:
+            - configMapRef:
+                name: divoc-config
+      restartPolicy: Always
+status: {}

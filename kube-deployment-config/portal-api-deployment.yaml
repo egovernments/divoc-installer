@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: portal-api
+  name: portal-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: portal-api
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        k8s-app: portal-api
+    spec:
+      containers:
+        - image: dockerhub/certificate_api:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "600m"
+            limits:
+              memory: "512Mi"
+              cpu: "600m"
+          name: portal-api
+          envFrom:
+            - configMapRef:
+                name: divoc-config
+      restartPolicy: Always
+status: {}

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    k8s-app: flagr
+  name: flagr
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+    - name: "tcp-18000"
+      port: 18000
+      protocol: TCP
+      targetPort: 18000
+  selector:
+    k8s-app: flagr
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}

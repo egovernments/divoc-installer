@@ -41,8 +41,6 @@ installDependencies()
     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/kafka-zookeeper/site.yml
     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/kubernetes/cluster.yml
     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/postgres-etcd/deploy_pgcluster.yml
-
-    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml
 }
 
 
@@ -64,14 +62,13 @@ installKubectl()
 
 configureKubectl()
 {
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml
     echo "Enter the IP Address of the Kubernetes master node / control plane: "
     read -r KUBE_NODE
     echo "Enter path to the private key to access the Kubernetes master node / control plane"
     read -r KUBE_NODE_KEY_PATH
     mkdir -p ~/.kube
-    mkdir -p /var/lib/kubelet/pki
-    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":~/.kube/config ~/.kube/config
-    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":~/.kube/kubelet-client-current.pem /var/lib/kubelet/pki/kubelet-client-current.pem
+    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":~/kubeadmin.config ~/.kube/config
     sed -i 5s/127.0.0.1/"$KUBE_NODE"/1 ~/.kube/config > ~/.kube.config
 
 }
@@ -81,7 +78,7 @@ deployCodeOnKube()
     kubectl apply -f kube-deployment-config/
 }
 
-installDependencies
-installKubectl
+# installDependencies
+# installKubectl
 configureKubectl
-deployCodeOnKube
+# deployCodeOnKube

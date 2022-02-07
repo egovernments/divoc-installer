@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-vaccination-api
+  namespace: divoc
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /auth/*
+            backend:
+              serviceName: keycloak-service
+              servicePort: 8080
+          - path: /divoc/*
+            backend:
+              serviceName: vaccination-api
+              servicePort: 8000
+          - path: /certificate/api/*
+            backend:
+              serviceName: certificate-api
+              servicePort: 4321
+          - path: /cert/*
+            backend:
+              serviceName: digilocker-support-api
+              servicePort: 8003
+          - path: /divoc/api/citizen/*
+            backend:
+             serviceName: registration-api
+             servicePort: 8002
+          - path: /divoc/admin/*
+              backend:
+                serviceName: portal-api
+                servicePort: 8001
+          - path: /config/*
+              backend:
+                serviceName: flagr
+                servicePort: 18000
+          - path: /*
+            backend:
+              serviceName: public-app
+              servicePort: 3000
