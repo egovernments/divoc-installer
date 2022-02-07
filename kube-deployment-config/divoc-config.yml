@@ -24,7 +24,7 @@ data:
   DISABLE_REGISTRY_CALL: ""
   DIGILOCKER_HMAC_AUTHKEY: "UPDATE_KEY_GIVEN_IN_DIGILOCKER"
   ENABLE_KEYCLOAK: "false"
-  CLICK_HOUSE_URL: "tcp://192.168.0.4:9000?debug=true"
+  CLICK_HOUSE_URL: "tcp://192.168.0.26:9000?debug=true"
   CERTIFICATE_NAMESPACE: "https://divoc.egov.org.in/credentials/vaccination/v1"
   CERTIFICATE_NAMESPACE_V2: "https://divoc.egov.org.in/credentials/vaccination/v2"
   CERTIFICATE_CONTROLLER_ID: "https://divoc.egov.org.in/"
