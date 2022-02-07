@@ -6,7 +6,7 @@
   tasks:
     
     - name: 'Copy kube config file'
-      shell: kubectl config view > /home/ubuntu/kubeadmin.conf
+      shell: cp /root/.kube/config /home/ubuntu/kubeadmin.conf
 
     - name: 'Change permissions for the config file'
       file:

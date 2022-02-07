@@ -69,7 +69,7 @@ configureKubectl()
     read -r KUBE_NODE_KEY_PATH
     mkdir -p ~/.kube
     scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":~/kubeadmin.conf ~/.kube/config
-    sed -i 's/127.0.0.1/"$KUBE_NODE"/g' ~/.kube/config
+    sed -i 's/127.0.0.1/'"$KUBE_NODE"'/g' ~/.kube/config
 
 }
 
