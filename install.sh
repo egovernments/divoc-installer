@@ -98,7 +98,7 @@ deployCodeOnKube()
     kubectl apply -f kube-deployment-config/certificate-signer-deployment.yaml -n divoc
 }
 
-installDependencies
+# installDependencies
 # installKubectl
 # configureKubectl
-# deployCodeOnKube
+deployCodeOnKube
