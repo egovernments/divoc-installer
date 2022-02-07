@@ -31,11 +31,6 @@ spec:
             - configMapRef:
                 name: divoc-config
           name: vaccination-api
-          resources:
-            requests:
-              cpu: 60m
-            limits:
-              cpu: 200m
           livenessProbe:
             tcpSocket:
               port: 8000

@@ -42,12 +42,6 @@ spec:
               value: "false"
           image: dockerhub/registry-es:latest
           imagePullPolicy: Always
-          resources:
-            requests:
-              cpu: 500m
-              memory: 512Mi
-          #            limits:
-          #              cpu: 500m
           name: registry
           ports:
             - containerPort: 8081

@@ -18,10 +18,6 @@ spec:
       containers:
         - image: dockerhub/certificate_signer:latest
           imagePullPolicy: Always
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "400m"
           name: certificate-signer
           envFrom:
             - configMapRef:

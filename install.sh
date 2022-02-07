@@ -92,8 +92,10 @@ deployCodeOnKube()
     kubectl apply -f kube-deployment-config/vaccination-api-service.yaml -n divoc
 
     # Certificate Processor
-    kubectl apply -f kube-deployment-config/certificate-processor-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/certificate-processor-service.yaml -n divoc    
+    kubectl apply -f kube-deployment-config/certificate-processor-deployment.yaml -n divoc   
+
+    # Certificate Signer
+    kubectl apply -f kube-deployment-config/certificate-signer-deployment.yaml -n divoc
 }
 
 installDependencies
