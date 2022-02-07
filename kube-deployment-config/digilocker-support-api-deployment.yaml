@@ -18,10 +18,6 @@ spec:
       containers:
         - image: dockerhub/digilocker_support_api:latest
           imagePullPolicy: Always
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "400m"
           name: digilocker-support-api
           envFrom:
             - configMapRef:

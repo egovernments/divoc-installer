@@ -96,6 +96,19 @@ deployCodeOnKube()
 
     # Certificate Signer
     kubectl apply -f kube-deployment-config/certificate-signer-deployment.yaml -n divoc
+
+    # Notification Service
+    kubectl apply -f kube-deployment-config/notification-service-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/notification-service-service.yaml -n divoc
+
+    # DIGI LOCKER Service
+    kubectl apply -f kube-deployment-config/digilocker-support-api-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/digilocker-support-api-service.yaml -n divoc
+
+    # Certificate API
+    kubectl apply -f kube-deployment-config/certificate-api-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/certificate-api-service.yaml -n divoc
+
 }
 
 # installDependencies

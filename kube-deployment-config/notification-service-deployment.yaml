@@ -18,10 +18,6 @@ spec:
       containers:
         - image: dockerhub/notification-service:latest
           imagePullPolicy: Always
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "400m"
           name: notification-service
           envFrom:
             - configMapRef:
