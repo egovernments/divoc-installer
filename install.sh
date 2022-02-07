@@ -68,8 +68,8 @@ configureKubectl()
     echo "Enter path to the private key to access the Kubernetes master node / control plane"
     read -r KUBE_NODE_KEY_PATH
     mkdir -p ~/.kube
-    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":~/kubeadmin.config ~/.kube/config
-    sed -i 5s/127.0.0.1/"$KUBE_NODE"/1 ~/.kube/config > ~/.kube.config
+    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":~/kubeadmin.conf ~/.kube/config
+    sed -i 5s/127.0.0.1/"$KUBE_NODE"/1 ~/.kube/config > ~/.kube/config
 
 }
 
