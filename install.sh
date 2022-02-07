@@ -77,7 +77,11 @@ configureKubectl()
 deployCodeOnKube()
 {
     kubectl create namespace divoc
+
+    kubectl apply -f kube-deployment-config/divoc-config.yaml -n divoc
+    # Keycloak
     kubectl apply -f kube-deployment-config/keycloak-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/keycloak-service.yaml -n divoc
     
 }
 
