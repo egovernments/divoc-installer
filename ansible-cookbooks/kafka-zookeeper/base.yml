@@ -4,14 +4,14 @@
   serial: "{{ serial_override | default(1) }}"
   become: true
   vars_files:
-    - "../group_vars/all.yml"
+    - "group_vars/all.yml"
 
 - name: Install OpenJDK
   hosts: all
   serial: "{{ serial_override | default(1) }}"
   become: true
   vars_files:
-    - "../group_vars/all.yml"
+    - "group_vars/all.yml"
   tasks:  
   - name: Update Package Manager Caches
     yum:

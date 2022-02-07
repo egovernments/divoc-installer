@@ -15,7 +15,7 @@
 #   serial: "{{ serial_override | default(1) }}"
 #   become: true
 #   vars_files:
-#     - "../group_vars/all.yml"
+#     - "group_vars/all.yml"
 #   tasks:
 #   - name: Install openjdk
 #     include_role:
@@ -27,9 +27,9 @@
   serial: "{{ serial_override | default(1) }}"
   become: true
   vars_files:
-    - "../group_vars/all.yml"
-    - "../group_vars/kafka_brokers.yml"
-    - "../group_vars/zookeeper_nodes.yml"
+    - "group_vars/all.yml"
+    - "group_vars/kafka_brokers.yml"
+    - "group_vars/zookeeper_nodes.yml"
   tasks:
   - name: Install zookeeper
     include_role:
@@ -59,9 +59,9 @@
   serial: "{{ serial_override | default(1) }}"
   become: true
   vars_files:
-    - "../group_vars/all.yml"
-    - "../group_vars/kafka_brokers.yml"
-    - "../group_vars/zookeeper_nodes.yml"
+    - "group_vars/all.yml"
+    - "group_vars/kafka_brokers.yml"
+    - "group_vars/zookeeper_nodes.yml"
   tasks:
   - name: Install kafka
     include_role:
@@ -87,9 +87,9 @@
   serial: "{{ serial_override | default(1) }}"
   become: true
   vars_files:
-    - "../group_vars/all.yml"
-    - "../group_vars/kafka_brokers.yml"
-    - "../group_vars/zookeeper_nodes.yml"
+    - "group_vars/all.yml"
+    - "group_vars/kafka_brokers.yml"
+    - "group_vars/zookeeper_nodes.yml"
   tasks:
     - name: Configure SASL
       include_role:
