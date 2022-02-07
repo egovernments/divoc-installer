@@ -75,7 +75,8 @@ configureKubectl()
 
 deployCodeOnKube()
 {
-    kubectl apply -f kube-deployment-config/
+    kubectl create namespace divoc
+    
 }
 
 # installDependencies
