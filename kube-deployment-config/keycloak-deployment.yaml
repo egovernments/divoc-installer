@@ -21,10 +21,10 @@ spec:
           resources:
             requests:
               cpu: "500m"
-              memory: "6Gi"
+              memory: "512Mi"
             limits:
               cpu: "500m"
-              memory: "6Gi"
+              memory: "512Mi"
           name: keycloak-service
           env:
             - name: DB_ADDR
