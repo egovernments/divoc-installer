@@ -25,11 +25,11 @@ spec:
       containers:
         - env:
             - name: connectionInfo_password
-              value: $5Ymvr8F#UkH
+              value: registry123
             - name: connectionInfo_uri
-              value: jdbc:postgresql://divoc-jamaica-1.cmzsabksrd8k.us-east-1.rds.amazonaws.com:5432/registry
+              value: jdbc:postgresql://192.168.0.14:5000/registry
             - name: connectionInfo_username
-              value: postgres
+              value: registry
             - name: elastic_search_enabled
               value: "false"
             - name: registry_base_apis_enable
@@ -45,7 +45,7 @@ spec:
           resources:
             requests:
               cpu: 500m
-              memory: 2Gi
+              memory: 512Mi
           #            limits:
           #              cpu: 500m
           name: registry
