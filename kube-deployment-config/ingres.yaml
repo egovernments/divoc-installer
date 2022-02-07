@@ -58,10 +58,10 @@ spec:
                 name: flagr
                 port: 
                   number: 18000
-          # - path: /*
-          #   pathType: Prefix
-          #   backend:
-          #     service: 
-          #       name: public-app
-          #       port: 
-          #         number: 3000
+          - path: /*
+            pathType: Prefix
+            backend:
+              service: 
+                name: keycloak-service
+                port: 
+                  number: 8080
