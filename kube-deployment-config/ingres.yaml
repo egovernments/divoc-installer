@@ -30,13 +30,13 @@ spec:
              serviceName: registration-api
              servicePort: 8002
           - path: /divoc/admin/*
-              backend:
-                serviceName: portal-api
-                servicePort: 8001
+            backend:
+              serviceName: portal-api
+              servicePort: 8001
           - path: /config/*
-              backend:
-                serviceName: flagr
-                servicePort: 18000
+            backend:
+              serviceName: flagr
+              servicePort: 18000
           - path: /*
             backend:
               serviceName: public-app
