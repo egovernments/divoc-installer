@@ -21,7 +21,7 @@ spec:
           resources:
             requests:
               memory: "64Mi"
-              cpu: "400m"
+              cpu: "50m"
           name: certificate-processor
           envFrom:
             - configMapRef:
