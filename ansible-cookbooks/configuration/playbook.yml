@@ -4,14 +4,12 @@
   hosts: kube_control_plane
   become: true
   tasks:
-    - name: 'Create a directory for kube config'
-      shell: mkdir -p /home/ubuntu/.kube
     
     - name: 'Copy kube config file'
       shell: kubectl config view > /home/ubuntu/kubeadmin.conf
 
     - name: 'Change permissions for the config file'
       file:
-        path: '/home/ubuntu/kubeadmin.config'
+        path: '/home/ubuntu/kubeadmin.conf'
         owner: ubuntu
         mode: 0755
