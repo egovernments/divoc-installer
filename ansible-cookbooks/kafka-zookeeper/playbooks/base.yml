@@ -5,13 +5,6 @@
   become: true
   vars_files:
     - "../group_vars/all.yml"
-  tasks:
-    - name: Copy ssh key
-      authorized_key:
-        user: root
-        state: present
-        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-      when: install_ssh_key
 
 - name: Install OpenJDK
   hosts: all
