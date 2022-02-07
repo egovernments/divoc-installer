@@ -28,5 +28,5 @@
   
   - name: Install openjdk
     include_role:
-      name: openjdk
+      name: 'openjdk'
     when: install_openjdk
