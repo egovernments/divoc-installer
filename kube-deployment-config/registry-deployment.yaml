@@ -27,7 +27,7 @@ spec:
             - name: connectionInfo_password
               value: registry123
             - name: connectionInfo_uri
-              value: jdbc:postgresql://192.168.0.21:5000/registry
+              value: jdbc:postgresql://65.1.111.93:5000/registry
             - name: connectionInfo_username
               value: registry
             - name: elastic_search_enabled
