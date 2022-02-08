@@ -40,7 +40,7 @@ spec:
               value: "100"
             - name: signature_enabled
               value: "false"
-          image: dockerhub/registry-es:latest
+          image: dockerhub/registry-es:1.25.0-generic
           imagePullPolicy: Always
           name: registry
           ports:
