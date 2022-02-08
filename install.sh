@@ -117,6 +117,11 @@ deployCodeOnKube()
     kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc
     kubectl apply -f kube-deployment-config/public-app-service.yaml -n divoc
 
+    kubectl apply -f kube-deployment-config/flagr-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/flagr-service.yaml -n divoc
+
+    
+
     kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/cloud/deploy.yaml
 
     # Ingres

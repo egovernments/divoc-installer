@@ -16,7 +16,7 @@ spec:
         k8s-app: flagr
     spec:
       containers:
-        - image: dockerhub/flagr:latest
+        - image:checkr/flagr:latest
           imagePullPolicy: Always
           name: flagr
           envFrom:
