@@ -19,7 +19,7 @@ sansible_kafka_max_open_files: 4098
 sansible_kafka_port: 9092
 sansible_kafka_server_properties: {}
 sansible_kafka_tarball_location: /home/kafka/tmp
-sansible_kafka_user: kafka
+sansible_kafka_user: root
 sansible_kafka_version_kafka: 2.7.0
 sansible_kafka_version_scala: 2.12
 sansible_kafka_wait_for_delay: 30
