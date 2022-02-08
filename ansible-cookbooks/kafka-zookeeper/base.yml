@@ -1,13 +1,13 @@
 ---
 - name: Set authorized key from file
-  hosts: all
+  hosts: kafka-nodes,zookeeper-nodes
   serial: "{{ serial_override | default(1) }}"
   become: true
   vars_files:
     - "group_vars/all.yml"
 
 - name: Install OpenJDK
-  hosts: all
+  hosts: kafka-nodes,zookeeper-nodes
   serial: "{{ serial_override | default(1) }}"
   become: true
   vars_files:
