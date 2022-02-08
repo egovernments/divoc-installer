@@ -4,7 +4,7 @@ metadata:
   name: ingress-divoc
   namespace: divoc
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: ingress-nginx
 spec:
   defaultBackend:
     service:
