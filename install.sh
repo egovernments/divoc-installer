@@ -35,13 +35,13 @@ installDependencies()
         add-apt-repository -qq --yes --update ppa:ansible/ansible
         apt -qq install ansible
     fi
-    # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/docker-registry/playbook.yml
-    # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/elastic-search/playbook.yml
-    # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/redis/playbook.yml
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/docker-registry/playbook.yml
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/elastic-search/playbook.yml
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/redis/playbook.yml
     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" ./ansible-cookbooks/kafka-zookeeper/kafka_and_zookeeper.yml
-    # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/kubernetes/cluster.yml
-    # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/postgres-etcd/deploy_pgcluster.yml
-    # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/clickhouse/playbook.yml
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/kubernetes/cluster.yml
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/postgres-etcd/deploy_pgcluster.yml
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/clickhouse/playbook.yml
 }
 
 
@@ -117,6 +117,7 @@ deployCodeOnKube()
     kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc
     kubectl apply -f kube-deployment-config/public-app-service.yaml -n divoc
 
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/cloud/deploy.yaml
 
     # Ingres
     kubectl apply -f kube-deployment-config/ingres.yaml -n divoc
