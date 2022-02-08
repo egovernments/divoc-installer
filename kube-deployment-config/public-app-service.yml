@@ -1,30 +1,22 @@
-# Source: ingress-nginx/templates/controller-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
+  namespace: divoc-phi
+  finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
   labels:
-    helm.sh/chart: ingress-nginx-3.23.0
-    app.kubernetes.io/name: public-app
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/version: 0.44.0
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/component: controller
+    k8s-app: public-app
   name: public-app
-  namespace: divoc
 spec:
-  type: LoadBalancer
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
   ports:
-    - name: http
-      port: 80
+    - name: "tcp-3000"
+      port: 3000
       protocol: TCP
-      targetPort: http
-    - name: https
-      port: 443
-      protocol: TCP
-      targetPort: https
+      targetPort: 80
   selector:
-    app.kubernetes.io/name: public-app
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/component: controller
+    k8s-app: public-app
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}
