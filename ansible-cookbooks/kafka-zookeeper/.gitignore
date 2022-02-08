@@ -1,6 +1,0 @@
-.vagrant
-.github
-.DS_Store
-.galaxy_install_info
-roles/kafka
-roles/zookeeper

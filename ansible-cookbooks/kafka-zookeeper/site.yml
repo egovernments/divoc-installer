@@ -1,5 +1,0 @@
----
-
-- import_playbook: base.yml
-- import_playbook: install_kafka_zkp.yml
-- import_playbook: configure_kafka.yml
