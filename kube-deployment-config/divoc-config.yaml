@@ -7,7 +7,7 @@ metadata:
 data:
   DB_HOST: "65.1.111.93"
   DB_PASSWORD: "registry123"
-  ADMIN_API_CLIENT_SECRET: "31ab24f6-1368-410c-a2de-a4dc6856c9c4"
+  ADMIN_API_CLIENT_SECRET: "b85c4cdb-40d4-46f3-8a75-f1756d118e97"
   DB_USER: "registry"
   DB_PORT: "5432"
   DB_DATABASE: "registry"
