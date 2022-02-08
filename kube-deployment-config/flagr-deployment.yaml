@@ -16,15 +16,8 @@ spec:
         k8s-app: flagr
     spec:
       containers:
-        - image: dockerhub/certificate_api:latest
+        - image: dockerhub/flagr:latest
           imagePullPolicy: Always
-          resources:
-            requests:
-              memory: "512Mi"
-              cpu: "600m"
-            limits:
-              memory: "512Mi"
-              cpu: "600m"
           name: flagr
           envFrom:
             - configMapRef:
