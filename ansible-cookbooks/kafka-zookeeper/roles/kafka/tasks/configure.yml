@@ -64,7 +64,7 @@
 
 - name: Setup environment config
   become: yes
-  become_user: "{{ sansible_kafka_user }}"
+  become_user: root
   template:
     dest: "/home/{{ sansible_kafka_user }}/etc/environment"
     mode: 0644
@@ -74,7 +74,7 @@
 
 - name: Create log4j.properties
   become: yes
-  become_user: "{{ sansible_kafka_user }}"
+  become_user: root
   template:
     dest: "/home/{{ sansible_kafka_user }}/etc/log4j.properties"
     mode: 0644
@@ -84,7 +84,7 @@
 
 - name: Create server.properties
   become: yes
-  become_user: "{{ sansible_kafka_user }}"
+  become_user: root
   template:
     dest: "/home/{{ sansible_kafka_user }}/etc/server.properties"
     mode: 0640
@@ -102,6 +102,7 @@
 
 - name: Ensure Kafka is running
   become: yes
+  become_user: root
   service:
     enabled: yes
     name: kafka

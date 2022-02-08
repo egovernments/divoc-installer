@@ -3,7 +3,7 @@
 - name: Ensure install folders
   become: yes
   become_method: sudo
-  become_user: "{{ sansible_kafka_user }}"
+  become_user: root
   file:
     state: directory
     path: "{{ item }}"
@@ -22,7 +22,7 @@
 - name: Fetch kafka binary package
   become: yes
   become_method: sudo
-  become_user: "{{ sansible_kafka_user }}"
+  become_user: root
   get_url:
     dest: "/home/{{ sansible_kafka_user }}/tmp/\
       kafka_{{ sansible_kafka_version_scala }}-{{ sansible_kafka_version_kafka }}.tgz"
@@ -32,7 +32,7 @@
 - name: Uncompress the kafka tar
   become: yes
   become_method: sudo
-  become_user: "{{ sansible_kafka_user }}"
+  become_user: root
   unarchive:
     copy: no
     creates: "/home/{{ sansible_kafka_user }}/kafka_{{ sansible_kafka_version_scala }}-{{ sansible_kafka_version_kafka }}"
@@ -42,7 +42,7 @@
 - name: Link kafka to the right version
   become: yes
   become_method: sudo
-  become_user: "{{ sansible_kafka_user }}"
+  become_user: root
   file:
     path: "/home/{{ sansible_kafka_user }}/kafka"
     src: "/home/{{ sansible_kafka_user }}/kafka_{{ sansible_kafka_version_scala }}-{{ sansible_kafka_version_kafka }}"
@@ -51,7 +51,7 @@
 - name: link config dir
   become: yes
   become_method: sudo
-  become_user: "{{ sansible_kafka_user }}"
+  become_user: root
   file:
     force: yes
     path: "/home/{{ sansible_kafka_user }}/etc"
