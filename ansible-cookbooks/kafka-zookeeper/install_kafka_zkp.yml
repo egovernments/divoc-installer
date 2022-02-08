@@ -55,7 +55,7 @@
 #     when: install_zookeeper_confluent
 
 - name: Install Kafka Opensource
-  hosts: kafka_brokers
+  hosts: kafka_nodes
   serial: "{{ serial_override | default(1) }}"
   become: true
   vars_files:
@@ -83,7 +83,7 @@
 #     when: install_kafka_confluent
 
 - name: Configure SASL Users 
-  hosts: kafka_brokers
+  hosts: kafka_nodes
   serial: "{{ serial_override | default(1) }}"
   become: true
   vars_files:

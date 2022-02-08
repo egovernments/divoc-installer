@@ -1,6 +1,6 @@
 ---
 - name: Configure Topics
-  hosts: kafka_brokers[0]
+  hosts: kafka_nodes
   become: true
   vars_files:
     - "group_vars/all.yml"
@@ -13,7 +13,7 @@
       when: configure_topics
 
 - name: Configure ACL's
-  hosts: kafka_brokers[0]
+  hosts: kafka_nodes
   become: true
   vars_files:
     - "group_vars/all.yml"
