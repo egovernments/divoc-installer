@@ -78,7 +78,7 @@ postgresql_port: "5432"
 postgresql_encoding: "UTF8"  # for bootstrap only (initdb)
 postgresql_locale: "en_US.UTF-8"  # for bootstrap only (initdb)
 postgresql_data_checksums: true  # for bootstrap only (initdb)
-postgresql_password_encryption_algorithm: "scram-sha-256"  # or "md5" if your clients do not work with passwords encrypted with SCRAM-SHA-256
+postgresql_password_encryption_algorithm: "md5"  # or "md5" if your clients do not work with passwords encrypted with SCRAM-SHA-256
 
 # (optional) list of users to be created (if not already exists)
 postgresql_users: 
@@ -215,9 +215,7 @@ pgbouncer_generate_userlist: true  # generate the authentication file (userlist.
 pgbouncer_auth_type: "{{ postgresql_password_encryption_algorithm }}"
 
 pgbouncer_pools:
-  - {name: "postgres", dbname: "postgres", pool_parameters: ""}
-  - {name: "registry", dbname: "registry", pool_parameters: "pool_size=20 pool_mode=transaction"}
-  - {name: "keycloak", dbname: "keycloak", pool_parameters: "pool_size=20 pool_mode=transaction"}
+#  - {name: "postgres", dbname: "postgres", pool_parameters: ""}
 #  - {name: "", dbname: "", pool_parameters: ""}
 #  - {name: "", dbname: "", pool_parameters: ""}
 
