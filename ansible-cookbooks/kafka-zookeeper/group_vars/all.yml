@@ -15,8 +15,8 @@ install_kafka_opensource: true
 ## Configure Topics
 configure_topics: true
 ## Setup Authentication and Access Controls
-configure_sasl: true
-configure_acl: true
+configure_sasl: false
+configure_acl: false
 set_producer_consumer: true
 set_principal_direct: true
 
