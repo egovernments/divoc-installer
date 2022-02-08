@@ -117,7 +117,7 @@ sudo_users:
 
 
 # Firewall (ansible-role-firewall)
-firewall_enabled_at_boot: true
+firewall_enabled_at_boot: false
 
 firewall_allowed_tcp_ports_for:
   master: []
