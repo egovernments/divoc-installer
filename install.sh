@@ -123,7 +123,7 @@ deployCodeOnKube()
 
 }
 
-# installDependencies
+installDependencies
 # installKubectl
-configureKubectl
+# configureKubectl
 # deployCodeOnKube
