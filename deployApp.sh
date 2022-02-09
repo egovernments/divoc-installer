@@ -45,8 +45,8 @@ buildPublicApp()
     cd "$SRC_CODE" || exit
     echo "Enter the docker-registry url: "
     read -r DOCKER_REGISTRY
-    docker build -t "$DOCKER_REGISTRY"/nginx .
-    docker image push "$DOCKER_REGISTRY"/nginx:latest
+    docker build -t "$DOCKER_REGISTRY":5000/nginx .
+    docker image push "$DOCKER_REGISTRY":5000/nginx:latest
 }
 
 deployCodeOnKube()
@@ -88,20 +88,25 @@ deployCodeOnKube()
     kubectl apply -f kube-deployment-config/portal-api-deployment.yaml -n divoc
     kubectl apply -f kube-deployment-config/portal-api-service.yaml -n divoc
 
-    # Public  App
-    kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/public-app-service.yaml -n divoc
+    # Registration API
+    kubectl apply -f kube-deployment-config/registration-api-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/registration-api-deployment.yaml -n divoc
 
     # Flagr
     kubectl apply -f kube-deployment-config/flagr-deployment.yaml -n divoc
     kubectl apply -f kube-deployment-config/flagr-service.yaml -n divoc
+    
+    # Public  App
+    kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/public-app-service.yml -n divoc
+
 
     
     # Ingress Controller
     kubectl apply -f kube-deployment-config/ingress-controller.yml
 
     # Ingres
-    kubectl apply -f kube-deployment-config/ingres.yaml -n divoc
+    kubectl apply -f kube-deployment-config/ingress.yaml -n divoc
 
     # Worker Node IP
     kubectl get ingress -n divoc
