@@ -3,8 +3,7 @@
 - name: 'Configure Kubectl on kube_control_plane'
   hosts: kube_control_plane
   become: true
-  tasks:
-    
+  tasks:   
     - name: 'Copy kube config file'
       shell: cp /root/.kube/config /home/ubuntu/kubeadmin.conf
 
@@ -13,3 +12,14 @@
         path: '/home/ubuntu/kubeadmin.conf'
         owner: ubuntu
         mode: 0755
+
+- name: 'Setup docker pull from insecure  registry'
+  hosts: kube_control_plane, kube_node
+  become: true
+  become_user: root
+  tasks:   
+    - name: 'create /etc/docker/daemon.json'
+      shell: touch /etc/docker/daemon.json
+    - name: 'Add insecure access to docker registry'
+      shell: |
+        echo '{"insecure-registries" : ["{{ hostvars[registry]['ansible_default_ipv4']['address'] }}:5000"]}' >> /etc/docker/daemon.json
