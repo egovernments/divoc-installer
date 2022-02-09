@@ -117,19 +117,23 @@ deployCodeOnKube()
     kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc
     kubectl apply -f kube-deployment-config/public-app-service.yaml -n divoc
 
+    # Flagr
     kubectl apply -f kube-deployment-config/flagr-deployment.yaml -n divoc
     kubectl apply -f kube-deployment-config/flagr-service.yaml -n divoc
 
     
-
+    # Ingress Controller
     kubectl apply -f kube-deployment-config/ingress-controller.yml
 
     # Ingres
     kubectl apply -f kube-deployment-config/ingres.yaml -n divoc
 
+    # Worker Node IP
+    kubectl get ingress -n divoc
+
 }
 
 installDependencies
-# installKubectl
-# configureKubectl
-# deployCodeOnKube
+installKubectl
+configureKubectl
+deployCodeOnKube
