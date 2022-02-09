@@ -17,7 +17,7 @@ spec:
         k8s-app: public-app
     spec:
       containers:
-        - image: 65.2.30.159:5000/nginx:latest
+        - image: 192.168.0.5:5000/nginx:latest
           imagePullPolicy: Always
           name: public-app
           envFrom:

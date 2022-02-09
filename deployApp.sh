@@ -109,4 +109,4 @@ deployCodeOnKube()
 }
 cloneRepo
 buildPublicApp
-# deployCodeOnKube
+deployCodeOnKube
