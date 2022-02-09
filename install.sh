@@ -63,7 +63,9 @@ installKubectl()
 
 configureKubectl()
 {
-    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml
+    echo "Enter the IP Address of the docker-registry: "
+    read -r REGISTRY
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml --extra-vars "registry=$REGISTRY"
     echo "Enter the IP Address of the Kubernetes master node / control plane: "
     read -r KUBE_NODE
     echo "Enter path to the private key to access the Kubernetes master node / control plane"

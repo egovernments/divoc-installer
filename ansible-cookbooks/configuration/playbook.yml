@@ -14,7 +14,7 @@
         mode: 0755
 
 - name: 'Setup docker pull from insecure  registry'
-  hosts: kube_control_plane, kube_node, registry
+  hosts: kube_control_plane, kube_node
   become: true
   become_user: root
   tasks:   
@@ -22,5 +22,5 @@
       shell: touch /etc/docker/daemon.json
     - name: 'Add insecure access to docker registry'
       shell: |
-        echo '{"insecure-registries" : ["{{ hostvars[registry]['ansible_default_ipv4']['address'] }}:5000"]}' >> /etc/docker/daemon.json
+        echo '{"insecure-registries" : ["{{ registry }}:5000"]}' >> /etc/docker/daemon.json
         service docker restart
