@@ -75,6 +75,6 @@ configureKubectl()
 }
 
 
-installDependencies
-# installKubectl
-# configureKubectl
+# installDependencies
+installKubectl
+configureKubectl
