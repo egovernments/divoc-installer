@@ -14,7 +14,7 @@
         mode: 0755
 
 - name: 'Setup docker pull from insecure  registry'
-  hosts: kube_control_plane, kube_node
+  hosts: kube_control_plane, kube_node, registry
   become: true
   become_user: root
   tasks:   
