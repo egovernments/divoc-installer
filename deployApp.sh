@@ -46,6 +46,7 @@ buildPublicApp()
     echo "Enter the docker-registry url: "
     read -r DOCKER_REGISTRY
     docker build -t "$DOCKER_REGISTRY"/nginx .
+    docker image push "$DOCKER_REGISTRY"/nginx:latest
 }
 
 deployCodeOnKube()
