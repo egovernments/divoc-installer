@@ -11,7 +11,7 @@ spec:
   externalTrafficPolicy: Cluster
   ports:
     - name: "tcp-3000"
-      port: 3000
+      port: 80
       protocol: TCP
       targetPort: 80
   selector:

@@ -17,7 +17,7 @@ spec:
         k8s-app: public-app
     spec:
       containers:
-        - image: dockerhub/nginx:latest
+        - image: 65.2.30.159:5000/nginx:latest
           imagePullPolicy: Always
           name: public-app
           envFrom:

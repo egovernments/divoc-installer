@@ -62,6 +62,6 @@ spec:
             pathType: Prefix
             backend:
               service: 
-                name: keycloak-service
+                name: public-app
                 port: 
-                  number: 8080
+                  number: 80
