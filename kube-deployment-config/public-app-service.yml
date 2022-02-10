@@ -17,6 +17,5 @@ spec:
   selector:
     k8s-app: public-app
   sessionAffinity: None
-  type: LoadBalancer
-status:
-  loadBalancer: {}
+  externalIPs:
+    - 3.109.212.185

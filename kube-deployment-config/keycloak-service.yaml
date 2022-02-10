@@ -16,4 +16,4 @@ spec:
   selector:
     k8s-app: keycloak-service
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP

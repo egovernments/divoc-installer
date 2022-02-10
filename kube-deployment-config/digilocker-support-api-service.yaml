@@ -16,4 +16,4 @@ spec:
   selector:
     k8s-app: digilocker-support-api
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP
