@@ -7,7 +7,6 @@ metadata:
     k8s-app: keycloak-service
   name: keycloak-service
 spec:
-  externalTrafficPolicy: Cluster
   ports:
     - name: "tcp-8003"
       port: 8080

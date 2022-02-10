@@ -7,7 +7,6 @@ metadata:
     k8s-app: registration-api
   name: registration-api
 spec:
-  externalTrafficPolicy: Cluster
   ports:
     - name: "tcp-8002"
       port: 8002

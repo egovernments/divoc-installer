@@ -8,7 +8,6 @@ metadata:
     k8s-app: public-app
   name: public-app
 spec:
-  externalTrafficPolicy: Cluster
   ports:
     - name: "tcp-3000"
       port: 80

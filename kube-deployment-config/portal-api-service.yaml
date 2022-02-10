@@ -7,7 +7,6 @@ metadata:
     k8s-app: portal-api
   name: portal-api
 spec:
-  externalTrafficPolicy: Cluster
   ports:
     - name: "tcp-8001"
       port: 8001
