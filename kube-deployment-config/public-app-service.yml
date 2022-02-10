@@ -18,3 +18,5 @@ spec:
   sessionAffinity: None
   externalIPs:
     - 3.109.212.185
+    - 3.110.55.143
+    - 3.110.208.204
