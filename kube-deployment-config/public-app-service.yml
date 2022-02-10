@@ -8,6 +8,7 @@ metadata:
     k8s-app: public-app
   name: public-app
 spec:
+  externalTrafficPolicy: Cluster
   ports:
     - name: "tcp-3000"
       port: 80
@@ -16,7 +17,4 @@ spec:
   selector:
     k8s-app: public-app
   sessionAffinity: None
-  externalIPs:
-    - 3.109.212.185
-    - 3.110.55.143
-    - 3.110.208.204
+  type: LoadBalancer
