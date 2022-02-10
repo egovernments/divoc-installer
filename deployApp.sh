@@ -100,7 +100,9 @@ deployCodeOnKube()
     kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc
     kubectl apply -f kube-deployment-config/public-app-service.yml -n divoc
 
-
+    # Metal LB Configuration
+    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/namespace.yaml
+    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/metallb.yaml
     
     # Ingress Controller
     kubectl apply -f kube-deployment-config/ingress-controller.yml
