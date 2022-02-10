@@ -16,6 +16,4 @@ spec:
   selector:
     k8s-app: certificate-api
   sessionAffinity: None
-  type: LoadBalancer
-status:
-  loadBalancer: {}
+  type: ClusterIP
