@@ -1,6 +1,17 @@
 #!/bin/sh
 
+INVENTORY_FILE="./inventory.ini"
 SRC_CODE="./src_code"
+
+
+configureKubectl()
+{
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml --extra-vars "registry=$REGISTRY"
+    mkdir -p ~/.kube
+    scp -i "$KUBE_MASTER_KEY_PATH" ubuntu@"$KUBE_MASTER":~/kubeadmin.conf ~/.kube/config
+    sed -i 's/127.0.0.1/'"$KUBE_MASTER"'/g' ~/.kube/config
+
+}
 
 cloneRepo()
 {
@@ -42,11 +53,10 @@ buildPublicApp()
         apt -qq -y update
         apt -qq -y install docker.io
     fi
-    cd "$SRC_CODE" || exit
-    echo "Enter the docker-registry url: "
-    read -r DOCKER_REGISTRY
-    docker build -t "$DOCKER_REGISTRY":5000/nginx .
-    docker image push "$DOCKER_REGISTRY":5000/nginx:latest
+
+    docker build -t "$REGISTRY":5000/nginx "$SRC_CODE"
+    docker image push "$REGISTRY":5000/nginx:latest
+
 }
 
 deployCodeOnKube()
@@ -99,10 +109,6 @@ deployCodeOnKube()
     # Public  App
     kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc
     kubectl apply -f kube-deployment-config/public-app-service.yml -n divoc
-
-    # Metal LB Configuration
-    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/namespace.yaml
-    kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.11.0/manifests/metallb.yaml
     
     # Ingress Controller
     kubectl apply -f kube-deployment-config/ingress-controller.yml
@@ -114,6 +120,15 @@ deployCodeOnKube()
     kubectl get ingress -n divoc
 
 }
+
+echo "Enter the IP Address of the docker-registry: "
+read -r REGISTRY
+echo "Enter the IP Address of the Kubernetes master node / control plane: "
+read -r KUBE_MASTER
+echo "Enter path to the private key to access the Kubernetes master node / control plane"
+read -r KUBE_MASTER_KEY_PATH
+
+configureKubectl
 cloneRepo
 buildPublicApp
 deployCodeOnKube

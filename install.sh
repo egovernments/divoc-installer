@@ -1,29 +1,12 @@
 #!/bin/sh
 
-SRC_CODE="./src_code"
-INVENTORY_FILE="./inventory.ini"
-
-cloneRepo()
-{
-
-    if command -v git
-    then
-        echo "command git exists on system"
-    else
-        echo "git could not be found"
-        echo "Installing GIT..."
-        apt -qq -y update
-        apt -qq -y install git
-    fi
-    echo "Enter the repository containing the source code: "
-    read -r REPO
-    echo "Cloning from $REPO into local directory $SRC_CODE"
-    git clone -q "$REPO" "$SRC_CODE"
-    echo "Source Code cloned successfully"
-}
 
 installDependencies()
 {
+    echo "Installing SSHPASS"
+    apt -qq -y update
+    apt -qq -y install sshpass
+
     if command -v ansible-playbook
     then
         echo "Ansible exists on your system"
@@ -61,22 +44,6 @@ installKubectl()
     fi
 }
 
-configureKubectl()
-{
-    echo "Enter the IP Address of the docker-registry: "
-    read -r REGISTRY
-    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml --extra-vars "registry=$REGISTRY"
-    echo "Enter the IP Address of the Kubernetes master node / control plane: "
-    read -r KUBE_NODE
-    echo "Enter path to the private key to access the Kubernetes master node / control plane"
-    read -r KUBE_NODE_KEY_PATH
-    mkdir -p ~/.kube
-    scp -i "$KUBE_NODE_KEY_PATH" ubuntu@"$KUBE_NODE":~/kubeadmin.conf ~/.kube/config
-    sed -i 's/127.0.0.1/'"$KUBE_NODE"'/g' ~/.kube/config
-
-}
-
 
 installDependencies
 installKubectl
-configureKubectl
