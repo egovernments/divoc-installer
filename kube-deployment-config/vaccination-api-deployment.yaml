@@ -4,15 +4,15 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: "4"
   labels:
-    k8s-app: vaccination_api
-  name: vaccination_api
+    k8s-app: vaccination-api
+  name: vaccination-api
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      k8s-app: vaccination_api
+      k8s-app: vaccination-api
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -21,8 +21,8 @@ spec:
   template:
     metadata:
       labels:
-        k8s-app: vaccination_api
-      name: vaccination_api
+        k8s-app: vaccination-api
+      name: vaccination-api
     spec:
       containers:
         - image: dockerhub/vaccination_api:latest
@@ -30,7 +30,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: divoc-config
-          name: vaccination_api
+          name: vaccination-api
           livenessProbe:
             tcpSocket:
               port: 8000
