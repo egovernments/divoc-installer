@@ -1,5 +1,6 @@
 #!/bin/sh
 
+INVENTORY_FILE="./inventory.ini"
 
 installDependencies()
 {
