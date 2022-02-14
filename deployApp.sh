@@ -3,6 +3,13 @@
 INVENTORY_FILE="./inventory.ini"
 SRC_CODE="./src_code"
 
+echo "Enter the IP Address of the docker-registry: "
+read -r REGISTRY
+echo "Enter the IP Address of the Kubernetes master node / control plane: "
+read -r KUBE_MASTER
+echo "Enter path to the private key to access the Kubernetes master node / control plane"
+read -r KUBE_MASTER_KEY_PATH
+
 
 configureKubectl()
 {
@@ -112,6 +119,9 @@ deployCodeOnKube()
     
     # Ingress Controller
     kubectl apply -f kube-deployment-config/ingress-controller.yml
+    echo "Creating Ingress Controller"
+    sleep 1m
+    
 
     # Ingres
     kubectl apply -f kube-deployment-config/ingress.yaml -n divoc
@@ -120,13 +130,6 @@ deployCodeOnKube()
     kubectl get ingress -n divoc
 
 }
-
-echo "Enter the IP Address of the docker-registry: "
-read -r REGISTRY
-echo "Enter the IP Address of the Kubernetes master node / control plane: "
-read -r KUBE_MASTER
-echo "Enter path to the private key to access the Kubernetes master node / control plane"
-read -r KUBE_MASTER_KEY_PATH
 
 configureKubectl
 cloneRepo
