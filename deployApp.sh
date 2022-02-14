@@ -63,6 +63,8 @@ buildPublicApp()
 
     docker build -t "$REGISTRY":5000/nginx "$SRC_CODE"
     docker image push "$REGISTRY":5000/nginx:latest
+    echo "Deleting $SRC_CODE"
+    rm -rf "$SRC_CODE"
 
 }
 
@@ -119,7 +121,7 @@ deployCodeOnKube()
     
     # Ingress Controller
     kubectl apply -f kube-deployment-config/ingress-controller.yml
-    echo "Creating Ingress Controller"
+    echo "Creating Ingress Controller, wait time is 1 minute"
     sleep 1m
     
 
