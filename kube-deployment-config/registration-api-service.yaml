@@ -4,8 +4,8 @@ metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
   labels:
-    k8s-app: registration_api
-  name: registration_api
+    k8s-app: registration-api
+  name: registration-api
 spec:
   ports:
     - name: "tcp-8002"
@@ -13,6 +13,6 @@ spec:
       protocol: TCP
       targetPort: 8002
   selector:
-    k8s-app: registration_api
+    k8s-app: registration-api
   sessionAffinity: None
   type: ClusterIP

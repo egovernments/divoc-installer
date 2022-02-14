@@ -4,8 +4,8 @@ metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
   labels:
-    k8s-app: digilocker_support_api
-  name: digilocker_support_api
+    k8s-app: digilocker-support-api
+  name: digilocker-support-api
 spec:
   externalTrafficPolicy: Cluster
   ports:
@@ -14,6 +14,6 @@ spec:
       protocol: TCP
       targetPort: 8003
   selector:
-    k8s-app: digilocker_support_api
+    k8s-app: digilocker-support-api
   sessionAffinity: None
   type: ClusterIP

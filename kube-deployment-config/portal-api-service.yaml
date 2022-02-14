@@ -4,8 +4,8 @@ metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
   labels:
-    k8s-app: portal_api
-  name: portal_api
+    k8s-app: portal-api
+  name: portal-api
 spec:
   ports:
     - name: "tcp-8001"
@@ -13,6 +13,6 @@ spec:
       protocol: TCP
       targetPort: 8001
   selector:
-    k8s-app: portal_api
+    k8s-app: portal-api
   sessionAffinity: None
   type: ClusterIP
