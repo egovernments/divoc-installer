@@ -1,7 +1,6 @@
 #!/bin/sh
 
 INVENTORY_FILE="./inventory.ini"
-
 installDependencies()
 {
     echo "Installing SSHPASS"
