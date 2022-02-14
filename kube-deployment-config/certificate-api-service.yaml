@@ -4,8 +4,8 @@ metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
   labels:
-    k8s-app: certificate-api
-  name: certificate-api
+    k8s-app: certificate_api
+  name: certificate_api
 spec:
   externalTrafficPolicy: Cluster
   ports:
@@ -14,6 +14,6 @@ spec:
       protocol: TCP
       targetPort: 4321
   selector:
-    k8s-app: certificate-api
+    k8s-app: certificate_api
   sessionAffinity: None
   type: ClusterIP

@@ -13,42 +13,42 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: keycloak-service
+                name: keycloak
                 port: 
                   number: 8080
           - path: /divoc
             pathType: Prefix
             backend:
               service:
-                name: vaccination-api
+                name: vaccination_api
                 port: 
                   number: 8000
           - path: /certificate/api
             pathType: Prefix
             backend:
               service:
-                name: certificate-api
+                name: certificate_api
                 port: 
                   number: 4321
           - path: /cert
             pathType: Prefix
             backend:
               service: 
-                name: digilocker-support-api
+                name: digilocker_support_api
                 port: 
                   number: 8003
           - path: /divoc/api/citizen
             pathType: Prefix
             backend:
               service: 
-                name: registration-api
+                name: registration_api
                 port: 
                   number: 8002
           - path: /divoc/admin
             pathType: Prefix
             backend:
               service: 
-                name: portal-api
+                name: portal_api
                 port: 
                   number: 8001
           - path: /config

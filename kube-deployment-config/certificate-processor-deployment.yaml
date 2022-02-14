@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    k8s-app: certificate-processor
-  name: certificate-processor
+    k8s-app: certificate_processor
+  name: certificate_processor
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: certificate-processor
+      k8s-app: certificate_processor
   strategy: {}
   template:
     metadata:
       labels:
-        k8s-app: certificate-processor
+        k8s-app: certificate_processor
     spec:
       containers:
         - image: dockerhub/certificate_processor:latest
           imagePullPolicy: Always
-          name: certificate-processor
+          name: certificate_processor
           envFrom:
             - configMapRef:
                 name: divoc-config

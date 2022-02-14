@@ -1,7 +1,7 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: analytics-feed
+  name: analytics_feed
   namespace: divoc
 spec:
   maxReplicas: 2
@@ -9,5 +9,5 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: analytics-feed
+    name: analytics_feed
   targetCPUUtilizationPercentage: 70

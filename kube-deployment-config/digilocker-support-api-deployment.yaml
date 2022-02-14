@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    k8s-app: digilocker-support-api
-  name: digilocker-support-api
+    k8s-app: digilocker_support_api
+  name: digilocker_support_api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: digilocker-support-api
+      k8s-app: digilocker_support_api
   strategy: {}
   template:
     metadata:
       labels:
-        k8s-app: digilocker-support-api
+        k8s-app: digilocker_support_api
     spec:
       containers:
         - image: dockerhub/digilocker_support_api:latest
           imagePullPolicy: Always
-          name: digilocker-support-api
+          name: digilocker_support_api
           envFrom:
             - configMapRef:
                 name: divoc-config

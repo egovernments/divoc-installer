@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    k8s-app: keycloak-service
-  name: keycloak-service
+    k8s-app: keycloak
+  name: keycloak
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: keycloak-service
+      k8s-app: keycloak
   strategy: {}
   template:
     metadata:
       labels:
-        k8s-app: keycloak-service
+        k8s-app: keycloak
     spec:
       containers:
         - image: dockerhub/keycloak:latest
@@ -25,7 +25,7 @@ spec:
             limits:
               cpu: "500m"
               memory: "512Mi"
-          name: keycloak-service
+          name: keycloak
           env:
             - name: DB_ADDR
               value: 192.168.0.25

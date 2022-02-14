@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    k8s-app: analytics-feed
-  name: analytics-feed
+    k8s-app: analytics_feed
+  name: analytics_feed
 spec:
   replicas: 1 
   selector:
     matchLabels:
-      k8s-app: analytics-feed
+      k8s-app: analytics_feed
   strategy: {}
   template:
     metadata:
       labels:
-        k8s-app: analytics-feed
+        k8s-app: analytics_feed
     spec:
       containers:
         - image: dockerhub/analytics_feed:latest
           imagePullPolicy: Always
-          name: analytics-feed
+          name: analytics_feed
           envFrom:
             - configMapRef:
                 name: divoc-config

@@ -4,8 +4,8 @@ metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
   labels:
-    k8s-app: vaccination-api
-  name: vaccination-api
+    k8s-app: vaccination_api
+  name: vaccination_api
 spec:
   ports:
     - name: "tcp-8000"
@@ -13,6 +13,6 @@ spec:
       protocol: TCP
       targetPort: 8000
   selector:
-    k8s-app: vaccination-api
+    k8s-app: vaccination_api
   sessionAffinity: None
   type: ClusterIP

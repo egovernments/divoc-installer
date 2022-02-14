@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    k8s-app: portal-api
-  name: portal-api
+    k8s-app: portal_api
+  name: portal_api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: portal-api
+      k8s-app: portal_api
   strategy: {}
   template:
     metadata:
       labels:
-        k8s-app: portal-api
+        k8s-app: portal_api
     spec:
       containers:
-        - image: dockerhub/certificate_api:latest
+        - image: dockerhub/portal_api:latest
           imagePullPolicy: Always
-          name: portal-api
+          name: portal_api
           envFrom:
             - configMapRef:
                 name: divoc-config

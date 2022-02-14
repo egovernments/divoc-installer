@@ -4,8 +4,8 @@ metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
   labels:
-    k8s-app: keycloak-service
-  name: keycloak-service
+    k8s-app: keycloak
+  name: keycloak
 spec:
   ports:
     - name: "tcp-8003"
@@ -13,6 +13,6 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    k8s-app: keycloak-service
+    k8s-app: keycloak
   sessionAffinity: None
   type: ClusterIP

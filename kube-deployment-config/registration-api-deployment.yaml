@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    k8s-app: registration-api
-  name: registration-api
+    k8s-app: registration_api
+  name: registration_api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: registration-api
+      k8s-app: registration_api
   strategy: {}
   template:
     metadata:
       labels:
-        k8s-app: registration-api
+        k8s-app: registration_api
     spec:
       containers:
         - image: dockerhub/registration_api:latest
           imagePullPolicy: Always
-          name: registration-api
+          name: registration_api
           envFrom:
             - configMapRef:
                 name: divoc-config
