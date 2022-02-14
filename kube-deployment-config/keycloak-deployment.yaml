@@ -28,13 +28,13 @@ spec:
           name: keycloak-service
           env:
             - name: DB_ADDR
-              value: 65.1.111.93
+              value: 192.168.0.25
             - name: DB_DATABASE
               value: registry
             - name: DB_PASSWORD
               value: registry123
             - name: DB_PORT
-              value: "5432"
+              value: "5000"
             - name: DB_USER
               value: registry
             - name: DB_VENDOR
@@ -46,5 +46,5 @@ spec:
             - name: ENABLE_OTP_MESSAGE
               value: "false"
             - name: KAFKA_BOOTSTRAP_SERVERS
-              value: "13.126.228.46:9092,52.66.189.108:9092,13.233.166.182:9092"
+              value: "192.168.0.7:9092,192.168.0.9:9092,192.168.0.14:9092"
       restartPolicy: Always

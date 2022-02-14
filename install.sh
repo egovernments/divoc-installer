@@ -16,7 +16,7 @@ installDependencies()
         apt -qq -y update
         apt -qq install software-properties-common
         add-apt-repository -qq --yes --update ppa:ansible/ansible
-        apt -qq install ansible
+        apt -qq -y install ansible
     fi
     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/docker-registry/playbook.yml
     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/elastic-search/playbook.yml
