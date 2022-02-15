@@ -9,6 +9,8 @@ echo "Enter the IP Address of the Kubernetes master node / control plane: "
 read -r KUBE_MASTER
 echo "Enter path to the private key to access the Kubernetes master node / control plane"
 read -r KUBE_MASTER_KEY_PATH
+echo "Enter the repository containing the source code: "
+read -r REPO
 
 
 configureKubectl()
@@ -32,8 +34,6 @@ cloneRepo()
         apt -qq -y update
         apt -qq -y install git
     fi
-    echo "Enter the repository containing the source code: "
-    read -r REPO
     echo "Cloning from $REPO into local directory $SRC_CODE"
     git clone -q "$REPO" "$SRC_CODE"
     echo "Source Code cloned successfully"
@@ -148,4 +148,4 @@ configureKubectl
 cloneRepo
 buildPublicApp
 deployCodeOnKube
-setupMonitoring
+# setupMonitoring
