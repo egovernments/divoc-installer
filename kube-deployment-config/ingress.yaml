@@ -20,35 +20,35 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: vaccination_api
+                name: vaccination-api
                 port: 
                   number: 8000
           - path: /certificate/api
             pathType: Prefix
             backend:
               service:
-                name: certificate_api
+                name: certificate-api
                 port: 
                   number: 4321
           - path: /cert
             pathType: Prefix
             backend:
               service: 
-                name: digilocker_support_api
+                name: digilocker-support-api
                 port: 
                   number: 8003
           - path: /divoc/api/citizen
             pathType: Prefix
             backend:
               service: 
-                name: registration_api
+                name: registration-api
                 port: 
                   number: 8002
           - path: /divoc/admin
             pathType: Prefix
             backend:
               service: 
-                name: portal_api
+                name: portal-api
                 port: 
                   number: 8001
           - path: /config
