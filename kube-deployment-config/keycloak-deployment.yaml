@@ -46,5 +46,5 @@ spec:
             - name: ENABLE_OTP_MESSAGE
               value: "false"
             - name: KAFKA_BOOTSTRAP_SERVERS
-              value: "13.232.73.28:9092,13.234.114.141:9092,13.127.179.115:9092"
+              value: "192.168.0.13:9092,192.168.0.11:9092,192.168.0.9:9092"
       restartPolicy: Always
