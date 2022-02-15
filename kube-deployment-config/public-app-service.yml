@@ -17,4 +17,4 @@ spec:
   selector:
     k8s-app: public-app
   sessionAffinity: None
-  type: LoadBalancer
+  type: NodePort
