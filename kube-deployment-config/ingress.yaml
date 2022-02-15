@@ -16,6 +16,13 @@ spec:
                 name: keycloak
                 port: 
                   number: 8080
+          - path: /divoc
+            pathType: Prefix
+            backend:
+              service:
+                name: vaccination-api
+                port: 
+                  number: 8000
           - path: /divoc/api/citizen
             pathType: Prefix
             backend:
@@ -30,27 +37,6 @@ spec:
                 name: portal-api
                 port: 
                   number: 8001
-          - path: /divoc
-            pathType: Prefix
-            backend:
-              service:
-                name: vaccination-api
-                port: 
-                  number: 8000
-          - path: /certificate/api
-            pathType: Prefix
-            backend:
-              service:
-                name: certificate-api
-                port: 
-                  number: 4321
-          - path: /cert
-            pathType: Prefix
-            backend:
-              service: 
-                name: digilocker-support-api
-                port: 
-                  number: 8003
           - path: /config
             pathType: Prefix
             backend:
@@ -58,6 +44,20 @@ spec:
                 name: flagr
                 port: 
                   number: 18000
+          - path: /cert
+            pathType: Prefix
+            backend:
+              service: 
+                name: digilocker-support-api
+                port: 
+                  number: 8003
+          - path: /certificate/api
+            pathType: Prefix
+            backend:
+              service:
+                name: certificate-api
+                port: 
+                  number: 4321
           - path: /
             pathType: Prefix
             backend:
