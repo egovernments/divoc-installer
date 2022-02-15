@@ -128,8 +128,8 @@ deployCodeOnKube()
     # Ingres
     kubectl apply -f kube-deployment-config/ingress.yaml -n divoc
 
-    # Worker Node IP
-    kubectl get ingress -n divoc
+    # Worker Node IP:<NodePort>
+    sudo kubectl get svc  -n ingress-nginx
 
 }
 
