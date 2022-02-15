@@ -7,7 +7,6 @@ metadata:
     k8s-app: flagr
   name: flagr
 spec:
-  externalTrafficPolicy: Cluster
   ports:
     - name: "tcp-18000"
       port: 18000

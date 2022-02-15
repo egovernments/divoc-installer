@@ -7,7 +7,6 @@ metadata:
     k8s-app: certificate-api
   name: certificate-api
 spec:
-  externalTrafficPolicy: Cluster
   ports:
     - name: "tcp-4321"
       port: 4321
