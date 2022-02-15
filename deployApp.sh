@@ -109,7 +109,7 @@ deployCodeOnKube()
 
     # Registration API
     kubectl apply -f kube-deployment-config/registration-api-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/registration-api-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/registration-api-service.yaml -n divoc
 
     # Flagr
     kubectl apply -f kube-deployment-config/flagr-deployment.yaml -n divoc
