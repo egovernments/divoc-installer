@@ -38,8 +38,14 @@ spec:
           mountPath: /etc/prometheus
         - name: prometheus-storage-volume
           mountPath: /prometheus
+        - name: persistent-storage-prometheus
+          mountPath: "/mnt/data"
       restartPolicy: Always
-
+      initContainers:
+        - name: volume-permission-fix
+          command: ["/bin/chmod","-R","777", "/mnt/data"]
+        - name: prometheus-storage-volume-fix
+          command: ["/bin/chmod","-R","777", "/prometheus"]
       volumes:
       - name: prometheus-config-volume
         configMap:
@@ -47,5 +53,9 @@ spec:
             name: prometheus-config
 
       - name: prometheus-storage-volume
+        persistentVolumeClaim:
+            claimName: pvc-nfs-data
+      
+      - name: persistent-storage-prometheus
         persistentVolumeClaim:
             claimName: pvc-nfs-data
