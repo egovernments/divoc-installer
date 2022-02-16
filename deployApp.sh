@@ -70,6 +70,8 @@ buildPublicApp()
 
 deployCodeOnKube()
 {
+    sed -i 's/REGISTRY/'"$REGISTRY"'/g' kube-deployment-config/public-app-deployment.yaml
+    
     kubectl create namespace divoc
 
     kubectl apply -f kube-deployment-config/divoc-config.yaml -n divoc
