@@ -45,19 +45,23 @@ spec:
         - name: volume-permission-fix
           image: busybox
           command: ["/bin/chmod","-R","777", "/mnt/data"]
+          volumeMounts:
+            - name: persistent-storage-prometheus
+              mountPath: "/mnt/data"
         - name: prometheus-storage-volume-fix
           image: busybox
           command: ["/bin/chmod","-R","777", "/prometheus"]
+          volumeMounts:
+            - name: prometheus-storage-volume
+              mountPath: /prometheus
       volumes:
       - name: prometheus-config-volume
         configMap:
             defaultMode: 420
             name: prometheus-config
-
       - name: prometheus-storage-volume
         persistentVolumeClaim:
             claimName: pvc-nfs-data
-      
       - name: persistent-storage-prometheus
         persistentVolumeClaim:
             claimName: pvc-nfs-data
