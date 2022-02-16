@@ -12,19 +12,8 @@ read -r KUBE_MASTER_KEY_PATH
 echo "Enter the repository containing the source code: "
 read -r REPO
 
-
-configureKubectl()
+installDependencies()
 {
-    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml --extra-vars "registry=$REGISTRY"
-    mkdir -p ~/.kube
-    scp -i "$KUBE_MASTER_KEY_PATH" ubuntu@"$KUBE_MASTER":~/kubeadmin.conf ~/.kube/config
-    sed -i 's/127.0.0.1/'"$KUBE_MASTER"'/g' ~/.kube/config
-
-}
-
-cloneRepo()
-{
-
     if command -v git
     then
         echo "command git exists on system"
@@ -34,14 +23,8 @@ cloneRepo()
         apt -qq -y update
         apt -qq -y install git
     fi
-    echo "Cloning from $REPO into local directory $SRC_CODE"
-    git clone -q "$REPO" "$SRC_CODE"
-    echo "Source Code cloned successfully"
-}
 
-buildPublicApp()
-{
-        if command -v make
+    if command -v make
     then 
         echo "command make exists on system"
     else   
@@ -60,7 +43,26 @@ buildPublicApp()
         apt -qq -y update
         apt -qq -y install docker.io
     fi
+}
 
+configureKubectl()
+{
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml --extra-vars "registry=$REGISTRY"
+    mkdir -p ~/.kube
+    scp -i "$KUBE_MASTER_KEY_PATH" ubuntu@"$KUBE_MASTER":~/kubeadmin.conf ~/.kube/config
+    sed -i 's/127.0.0.1/'"$KUBE_MASTER"'/g' ~/.kube/config
+
+}
+
+cloneRepo()
+{
+    echo "Cloning from $REPO into local directory $SRC_CODE"
+    git clone -q "$REPO" "$SRC_CODE"
+    echo "Source Code cloned successfully"
+}
+
+buildPublicApp()
+{
     docker build -t "$REGISTRY":5000/nginx "$SRC_CODE"
     docker image push "$REGISTRY":5000/nginx:latest
     echo "Deleting $SRC_CODE"
@@ -146,8 +148,8 @@ setupMonitoring()
     kubectl apply -f kube-deployment-config/ingress-monitoring.yaml
 }
 
+installDependencies
 configureKubectl
 cloneRepo
 buildPublicApp
 deployCodeOnKube
-# setupMonitoring
