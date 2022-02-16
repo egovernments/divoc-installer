@@ -139,8 +139,8 @@ deployCodeOnKube()
 
 setupMonitoring()
 {
-    kubectl apply -k kube-deployment-config/monitoring -n monitoring
-    
+    cd kube-deployment-config/monitoring/ || exit 
+    kubectl apply -k . -n monitoring
 }
 
 installDependencies
