@@ -43,8 +43,10 @@ spec:
       restartPolicy: Always
       initContainers:
         - name: volume-permission-fix
+          image: busybox
           command: ["/bin/chmod","-R","777", "/mnt/data"]
         - name: prometheus-storage-volume-fix
+          image: busybox
           command: ["/bin/chmod","-R","777", "/prometheus"]
       volumes:
       - name: prometheus-config-volume
