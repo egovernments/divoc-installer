@@ -139,13 +139,8 @@ deployCodeOnKube()
 
 setupMonitoring()
 {
-    kubectl create -f kube-deployment-config/monitoring/prometheus/manifests/setup/
-    echo "Waiting for pods to come online, sleeping for  2 minutes"
-    sleep 2m
-    kubectl create -f kube-deployment-config/monitoring/prometheus/manifests/
-    echo "Waiting for pods to come online, sleeping for  2 minutes"
-    sleep 2m
-    kubectl apply -f kube-deployment-config/ingress-monitoring.yaml
+    kubectl apply -k kube-deployment-config/monitoring -n monitoring
+    
 }
 
 installDependencies

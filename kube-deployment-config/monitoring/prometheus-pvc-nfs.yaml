@@ -7,9 +7,9 @@ metadata:
   labels:
     app: prometheus-deployment
 spec:
-  storageClassName: managed-nfs
+  storageClassName: manual
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 500Mi

@@ -5,14 +5,13 @@ metadata:
   name: pv-nfs-data
   namespace: monitoring
   labels:
-    type: nfs
+    type: local
     app: prometheus-deployment
 spec:
-  storageClassName: managed-nfs
+  storageClassName: manual
   capacity:
     storage: 1Gi
   accessModes:
-    - ReadWriteMany
-  nfs:
-    server: 192.168.31.174
-    path: "/mnt/nfs/promdata"
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
