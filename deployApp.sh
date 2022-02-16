@@ -43,6 +43,15 @@ installDependencies()
         apt -qq -y update
         apt -qq -y install docker.io
     fi
+    
+    if command -v helm
+    then
+        echo "command helm exists on system"
+    else
+            curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+            chmod 700 get_helm.sh
+            ./get_helm.sh
+    fi
 }
 
 configureKubectl()
@@ -139,8 +148,14 @@ deployCodeOnKube()
 
 setupMonitoring()
 {
-    cd kube-deployment-config/monitoring/ || exit 
-    kubectl apply -k . -n monitoring
+    # install helm
+    # ddefault username: admin, password: prom-operator
+    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    helm repo add stable https://charts.helm.sh/stable
+    kubectl create ns monitoring
+    helm repo update
+    helm install kube-prometheus  prometheus-community/kube-prometheus-stack --namespace monitoring
+    kubectl patch svc kube-prometheus-grafana -n monitoring -p '{"spec": {"type": "NodePort", "ports":[{"name":"http-web", "port": 80, "protocol": "TCP", "targetPort": 3000, "nodePort": 30000}]}}'
 }
 
 installDependencies
@@ -148,3 +163,4 @@ configureKubectl
 cloneRepo
 buildPublicApp
 deployCodeOnKube
+setupMonitoring
