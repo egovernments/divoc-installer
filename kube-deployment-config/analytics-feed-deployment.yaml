@@ -16,7 +16,7 @@ spec:
         k8s-app: analytics-feed
     spec:
       containers:
-        - image: dockerhub/analytics_feed:latest
+        - image: dockerhub/analytics_feed:1.0.16
           imagePullPolicy: Always
           name: analytics-feed
           envFrom:

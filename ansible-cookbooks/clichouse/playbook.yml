@@ -1,4 +1,0 @@
-  - hosts: clickhouse_cluster
-    become: true
-    roles:
-      - clickhouse

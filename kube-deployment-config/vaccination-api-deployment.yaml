@@ -25,7 +25,7 @@ spec:
       name: vaccination-api
     spec:
       containers:
-        - image: dockerhub/vaccination_api:latest
+        - image: dockerhub/vaccination_api:1.24.0-generic-sec-update
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
