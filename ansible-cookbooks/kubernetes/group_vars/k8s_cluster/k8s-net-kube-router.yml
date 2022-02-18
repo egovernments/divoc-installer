@@ -37,7 +37,7 @@
 
 # Setups node CNI to allow hairpin mode, requires node reboots, see
 # https://github.com/cloudnativelabs/kube-router/blob/master/docs/user-guide.md#hairpin-mode
-# kube_router_support_hairpin_mode: false
+kube_router_support_hairpin_mode: true
 
 # Select DNS Policy ClusterFirstWithHostNet, ClusterFirst, etc.
 # kube_router_dns_policy: ClusterFirstWithHostNet
@@ -52,7 +52,7 @@
 # kube_router_annotations_all: []
 
 # Enables scraping kube-router metrics with Prometheus
-# kube_router_enable_metrics: false
+kube_router_enable_metrics: false
 
 # Path to serve Prometheus metrics on
 # kube_router_metrics_path: /metrics

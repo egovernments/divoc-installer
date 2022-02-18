@@ -53,16 +53,16 @@
 
 
 
-- name: Config | Generate remote_servers config
-  template:
-    src: remote_servers.j2
-    dest: "{{ clickhouse_path_configdir }}/config.d/clickhouse_remote_servers.xml"
-    owner: "{{ clickhouse_user | default('clickhouse') }}"
-    group: "{{ clickhouse_group | default('clickhouse') }}"
-    mode: "ug=rw,o-rwx"
-  notify: restart-ch
-  become: true
-  when: clickhouse_shards is defined
+# - name: Config | Generate remote_servers config
+#   template:
+#     src: remote_servers.j2
+#     dest: "{{ clickhouse_path_configdir }}/config.d/clickhouse_remote_servers.xml"
+#     owner: "{{ clickhouse_user | default('clickhouse') }}"
+#     group: "{{ clickhouse_group | default('clickhouse') }}"
+#     mode: "ug=rw,o-rwx"
+#   notify: restart-ch
+#   become: true
+#   when: clickhouse_shards is defined
 
 - name: Config | Generate macros config
   template:
