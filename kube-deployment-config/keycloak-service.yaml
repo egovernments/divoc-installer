@@ -8,7 +8,7 @@ metadata:
   name: keycloak
 spec:
   ports:
-    - name: "tcp-8003"
+    - name: "tcp-8080"
       port: 8080
       protocol: TCP
       targetPort: 8080
