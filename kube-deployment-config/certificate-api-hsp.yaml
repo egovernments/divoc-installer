@@ -2,7 +2,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: certificate-api
-  namespace: divoc-qa
+  namespace: divoc
 spec:
   maxReplicas: 5
   minReplicas: 1

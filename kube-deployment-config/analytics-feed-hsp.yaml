@@ -2,7 +2,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: analytics-feed
-  namespace: divoc-qa
+  namespace: divoc
 spec:
   maxReplicas: 2
   minReplicas: 1

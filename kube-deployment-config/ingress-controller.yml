@@ -399,7 +399,6 @@ spec:
         kubernetes.io/os: linux
       serviceAccountName: ingress-nginx
       terminationGracePeriodSeconds: 300
-      hostNetwork: true
       volumes:
         - name: webhook-cert
           secret:

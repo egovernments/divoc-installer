@@ -15,7 +15,6 @@ spec:
       labels:
         k8s-app: test-certificate-signer
     spec:
-      hostNetwork: true
       containers:
         - image: dockerhub/test_certificate_signer:1.24.0-generic
           imagePullPolicy: Always

@@ -15,7 +15,6 @@ spec:
       labels:
         k8s-app: digilocker-support-api
     spec:
-      hostNetwork: true
       containers:
         - image: dockerhub/digilocker_support_api:1.0.56
           imagePullPolicy: Always

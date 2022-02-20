@@ -2,7 +2,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: keycloak
-  namespace: divoc-qa
+  namespace: divoc
 spec:
   maxReplicas: 50
   minReplicas: 1

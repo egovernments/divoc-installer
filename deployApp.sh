@@ -83,54 +83,54 @@ deployCodeOnKube()
 {
     sed -i 's/REGISTRY/'"$REGISTRY"'/g' kube-deployment-config/public-app-deployment.yaml
     
-    kubectl create namespace divoc-qa
+    kubectl create namespace divoc
 
-    kubectl apply -f kube-deployment-config/divoc-config.yaml -n divoc-qa
+    kubectl apply -f kube-deployment-config/divoc-config.yaml -n divoc
     # Keycloak
-    kubectl apply -f kube-deployment-config/keycloak-deployment.yaml -n divoc-qa
-    kubectl apply -f kube-deployment-config/keycloak-service.yaml -n divoc-qa
+    kubectl apply -f kube-deployment-config/keycloak-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/keycloak-service.yaml -n divoc
 
     # Registry
-    kubectl apply -f kube-deployment-config/registry-deployment.yaml -n divoc-qa
-    kubectl apply -f kube-deployment-config/registry-service.yaml -n divoc-qa
+    kubectl apply -f kube-deployment-config/registry-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/registry-service.yaml -n divoc
 
     # Vaccination API
-    kubectl apply -f kube-deployment-config/vaccination-api-deployment.yaml -n divoc-qa
-    kubectl apply -f kube-deployment-config/vaccination-api-service.yaml -n divoc-qa
+    kubectl apply -f kube-deployment-config/vaccination-api-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/vaccination-api-service.yaml -n divoc
 
     # Certificate Processor
-    kubectl apply -f kube-deployment-config/certificate-processor-deployment.yaml -n divoc-qa   
+    kubectl apply -f kube-deployment-config/certificate-processor-deployment.yaml -n divoc   
 
     # Certificate Signer
-    kubectl apply -f kube-deployment-config/certificate-signer-deployment.yaml -n divoc-qa
+    kubectl apply -f kube-deployment-config/certificate-signer-deployment.yaml -n divoc
 
     # Notification Service
-    kubectl apply -f kube-deployment-config/notification-service-deployment.yaml -n divoc-qa
-    kubectl apply -f kube-deployment-config/notification-service-service.yaml -n divoc-qa
+    kubectl apply -f kube-deployment-config/notification-service-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/notification-service-service.yaml -n divoc
 
     # DIGI LOCKER Service
-    kubectl apply -f kube-deployment-config/digilocker-support-api-deployment.yaml -n divoc-qa
-    kubectl apply -f kube-deployment-config/digilocker-support-api-service.yaml -n divoc-qa
+    kubectl apply -f kube-deployment-config/digilocker-support-api-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/digilocker-support-api-service.yaml -n divoc
 
     # Certificate API
-    kubectl apply -f kube-deployment-config/certificate-api-deployment.yaml -n divoc-qa
-    kubectl apply -f kube-deployment-config/certificate-api-service.yaml -n divoc-qa
+    kubectl apply -f kube-deployment-config/certificate-api-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/certificate-api-service.yaml -n divoc
 
     # PORTAL API
-    kubectl apply -f kube-deployment-config/portal-api-deployment.yaml -n divoc-qa
-    kubectl apply -f kube-deployment-config/portal-api-service.yaml -n divoc-qa
+    kubectl apply -f kube-deployment-config/portal-api-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/portal-api-service.yaml -n divoc
 
     # Registration API
-    kubectl apply -f kube-deployment-config/registration-api-deployment.yaml -n divoc-qa
-    kubectl apply -f kube-deployment-config/registration-api-service.yaml -n divoc-qa
+    kubectl apply -f kube-deployment-config/registration-api-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/registration-api-service.yaml -n divoc
 
     # Flagr
-    kubectl apply -f kube-deployment-config/flagr-deployment.yaml -n divoc-qa
-    kubectl apply -f kube-deployment-config/flagr-service.yaml -n divoc-qa
+    kubectl apply -f kube-deployment-config/flagr-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/flagr-service.yaml -n divoc
     
     # Public  App
-    kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc-qa
-    kubectl apply -f kube-deployment-config/public-app-service.yml -n divoc-qa
+    kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc
+    kubectl apply -f kube-deployment-config/public-app-service.yml -n divoc
     
     # Ingress Controller
     kubectl apply -f kube-deployment-config/ingress-controller.yml
@@ -143,7 +143,7 @@ deployCodeOnKube()
     # kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/metallb.yaml
     
     # Ingres
-    # kubectl apply -f kube-deployment-config/ingress.yaml -n divoc-qa
+    # kubectl apply -f kube-deployment-config/ingress.yaml -n divoc
 
     # Worker Node IP:<NodePort>
     kubectl get svc  -n ingress-nginx

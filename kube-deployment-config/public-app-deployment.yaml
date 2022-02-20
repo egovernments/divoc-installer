@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: divoc-qa
+  namespace: divoc
   labels:
     k8s-app: public-app
   name: public-app
@@ -16,7 +16,6 @@ spec:
       labels:
         k8s-app: public-app
     spec:
-      hostNetwork: true
       containers:
         - image: REGISTRY:5000/nginx:latest
           imagePullPolicy: Always
