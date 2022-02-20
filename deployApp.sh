@@ -157,10 +157,11 @@ setupMonitoring()
     helm install kube-prometheus  prometheus-community/kube-prometheus-stack --namespace monitoring
     kubectl patch svc kube-prometheus-grafana -n monitoring -p '{"spec": {"type": "NodePort", "ports":[{"name":"http-web", "port": 80, "protocol": "TCP", "targetPort": 3000, "nodePort": 30000}]}}'
 }
-
+date
 installDependencies
 configureKubectl
 cloneRepo
 buildPublicApp
 deployCodeOnKube
-setupMonitoring
+# setupMonitoring
+date
