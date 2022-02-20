@@ -133,17 +133,17 @@ deployCodeOnKube()
     kubectl apply -f kube-deployment-config/public-app-service.yml -n divoc-qa
     
     # Ingress Controller
-    # kubectl apply -f kube-deployment-config/ingress-controller.yml
+    kubectl apply -f kube-deployment-config/ingress-controller.yml
     # echo "Creating Ingress Controller, wait time is 1 minute"
     # sleep 1m
-    helm install stable/nginx-ingress --set controller.hostNetwork=true,controller.service.type="",controller.kind=DaemonSet --generate-name
+    # helm install stable/nginx-ingress --set controller.hostNetwork=true,controller.service.type="",controller.kind=DaemonSet --generate-name
     
     #Metal LB
     # kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/namespace.yaml
     # kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/metallb.yaml
     
     # Ingres
-    kubectl apply -f kube-deployment-config/ingress.yaml -n divoc-qa
+    # kubectl apply -f kube-deployment-config/ingress.yaml -n divoc-qa
 
     # Worker Node IP:<NodePort>
     kubectl get svc  -n ingress-nginx
