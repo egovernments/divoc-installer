@@ -22,6 +22,7 @@ spec:
       labels:
         k8s-app: registry
     spec:
+      hostNetwork: true
       containers:
         - env:
             - name: connectionInfo_password

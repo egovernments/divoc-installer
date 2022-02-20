@@ -15,6 +15,7 @@ spec:
       labels:
         k8s-app: notification-service
     spec:
+      hostNetwork: true
       containers:
         - image: dockerhub/notification-service:1.24.0-generic
           imagePullPolicy: Always

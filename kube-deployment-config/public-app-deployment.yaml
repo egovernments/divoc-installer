@@ -16,6 +16,7 @@ spec:
       labels:
         k8s-app: public-app
     spec:
+      hostNetwork: true
       containers:
         - image: REGISTRY:5000/nginx:latest
           imagePullPolicy: Always

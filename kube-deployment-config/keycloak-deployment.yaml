@@ -15,6 +15,7 @@ spec:
       labels:
         k8s-app: keycloak
     spec:
+      hostNetwork: true
       containers:
         - image: dockerhub/keycloak:1.24.0-generic
           imagePullPolicy: Always
@@ -46,5 +47,5 @@ spec:
             - name: ENABLE_OTP_MESSAGE
               value: "false"
             - name: KAFKA_BOOTSTRAP_SERVERS
-              value: "192.168.0.10:9092,192.168.0.14:9092,192.168.0.12:9092"
+              value: "192.168.0.10:9092"
       restartPolicy: Always

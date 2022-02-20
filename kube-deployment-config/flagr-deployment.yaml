@@ -15,6 +15,7 @@ spec:
       labels:
         k8s-app: flagr
     spec:
+      hostNetwork: true
       containers:
         - image: checkr/flagr:latest
           imagePullPolicy: Always
