@@ -10,7 +10,8 @@ spec:
       port: 8003
       protocol: TCP
       targetPort: 8003
+      nodePort: 32003
   selector:
     k8s-app: digilocker-support-api
   sessionAffinity: None
-  type: ClusterIP
+  type: NodePort

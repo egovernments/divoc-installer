@@ -10,7 +10,8 @@ spec:
       port: 4321
       protocol: TCP
       targetPort: 4321
+      nodePort: 32321
   selector:
     k8s-app: certificate-api
   sessionAffinity: None
-  type: ClusterIP
+  type: NodePort

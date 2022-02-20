@@ -9,7 +9,8 @@ spec:
     - name: "8765"
       port: 8765
       targetPort: 8765
+      nodePort: 32765
   selector:
     k8s-app: notification-service
   sessionAffinity: None
-  type: ClusterIP
+  type: NodePort

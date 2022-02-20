@@ -10,7 +10,8 @@ spec:
       port: 8000
       protocol: TCP
       targetPort: 8000
+      nodePort: 32800
   selector:
     k8s-app: vaccination-api
   sessionAffinity: None
-  type: ClusterIP
+  type: NodePort

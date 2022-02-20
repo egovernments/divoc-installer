@@ -10,7 +10,8 @@ spec:
       port: 8002
       protocol: TCP
       targetPort: 8002
+      nodePort: 32002
   selector:
     k8s-app: registration-api
   sessionAffinity: None
-  type: ClusterIP
+  type: NodePort
