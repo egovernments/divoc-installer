@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-divoc
@@ -10,35 +10,58 @@ spec:
     - http:
         paths:
           - path: /auth
+            pathType: Prefix
             backend:
-              serviceName: keycloak
-              servicePort: 8080
+              service:
+                name: keycloak
+                port: 
+                  number: 8080
           - path: /divoc
+            pathType: Prefix
             backend:
-              serviceName: vaccination-api
-              servicePort: 8000
+              service:
+                name: vaccination-api
+                port: 
+                  number: 8000
           - path: /divoc/api/citizen
+            pathType: Prefix
             backend:
-              serviceName: registration-api
-              servicePort: 8002
+              service: 
+                name: registration-api
+                port: 
+                  number: 8002
           - path: /divoc/admin
+            pathType: Prefix
             backend:
-              serviceName: portal-api
-              servicePort: 8001
+              service: 
+                name: portal-api
+                port: 
+                  number: 8001
           - path: /config
             pathType: Prefix
             backend:
-              serviceName: flagr
-              servicePort: 18000
+              service:
+                name: flagr
+                port: 
+                  number: 18000
           - path: /cert
+            pathType: Prefix
             backend:
-              serviceName: digilocker-support-api
-              servicePort: 8003
+              service: 
+                name: digilocker-support-api
+                port: 
+                  number: 8003
           - path: /certificate/api
+            pathType: Prefix
             backend:
-              serviceName: certificate-api
-              servicePort: 4321
+              service:
+                name: certificate-api
+                port: 
+                  number: 4321
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: public-app
-              servicePort: 80
+              service: 
+                name: public-app
+                port: 
+                  number: 80
