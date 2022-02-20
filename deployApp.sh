@@ -83,7 +83,7 @@ deployCodeOnKube()
 {
     sed -i 's/REGISTRY/'"$REGISTRY"'/g' kube-deployment-config/public-app-deployment.yaml
     
-    kubectl create namespace divoc
+    kubectl create namespace divoc-qa
 
     kubectl apply -f kube-deployment-config/divoc-config.yaml -n divoc-qa
     # Keycloak
@@ -136,7 +136,7 @@ deployCodeOnKube()
     # kubectl apply -f kube-deployment-config/ingress-controller.yml
     # echo "Creating Ingress Controller, wait time is 1 minute"
     # sleep 1m
-    helm install stable/nginx-ingress --set controller.hostNetwork=true,controller.service.type="",controller.kind=DaemonSet
+    helm install stable/nginx-ingress --set controller.hostNetwork=true,controller.service.type="",controller.kind=DaemonSet --generate-name
     
     #Metal LB
     # kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/namespace.yaml
