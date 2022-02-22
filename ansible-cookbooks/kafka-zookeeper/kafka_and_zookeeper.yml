@@ -8,7 +8,10 @@
   become: true
   roles:
     - role: zookeeper
-      sansible_kafka_zookeeper_hosts: "{{ zookeeper_hosts }}"
+      sansible_kafka_zookeeper_hosts: 
+        - 192.168.0.10
+        - 192.168.0.14
+        - 192.168.0.5
 
 - name: Install kafka
   hosts: kafka-nodes
@@ -17,5 +20,8 @@
     - role: kafka
       sansible_kafka_listen_address: "{{ ansible_default_ipv4.address }}"
       sansible_kafka_advertised_host_name: "{{ ansible_default_ipv4.address }}"
-      sansible_kafka_zookeeper_hosts: "{{ zookeeper_hosts }}"
+      sansible_kafka_zookeeper_hosts:
+        - 192.168.0.10
+        - 192.168.0.14
+        - 192.168.0.5
 
