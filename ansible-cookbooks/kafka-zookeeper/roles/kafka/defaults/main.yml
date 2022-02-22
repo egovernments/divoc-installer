@@ -17,7 +17,7 @@ sansible_kafka_log_dir: /home/kafka/log
 sansible_kafka_log_level: WARN
 sansible_kafka_max_open_files: 4098
 sansible_kafka_port: 9092
-sansible_kafka_server_properties: {'offsets.topic.replication.factor=1': 1}
+sansible_kafka_server_properties: {'offsets.topic.replication.factor': 1}
 sansible_kafka_tarball_location: /home/kafka/tmp
 sansible_kafka_user: kafka
 sansible_kafka_version_kafka: 2.7.0
