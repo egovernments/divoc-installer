@@ -23,7 +23,7 @@ data:
   REDIS_URL: "redis://192.168.0.8:6379"
   DISABLE_REGISTRY_CALL: ""
   DIGILOCKER_HMAC_AUTHKEY: "UPDATE_KEY_GIVEN_IN_DIGILOCKER"
-  ENABLE_KEYCLOAK: "false"
+  ENABLE_KEYCLOAK: "true"
   CLICK_HOUSE_URL: "tcp://192.168.0.26:9000?debug=true"
   CERTIFICATE_NAMESPACE: "https://divoc.egov.org.in/credentials/vaccination/v1"
   CERTIFICATE_NAMESPACE_V2: "https://divoc.egov.org.in/credentials/vaccination/v2"
