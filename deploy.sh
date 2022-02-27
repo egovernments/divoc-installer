@@ -1,12 +1,9 @@
 #!/bin/sh
 
 INVENTORY_FILE="./inventory.ini"
-SRC_CODE="./src_code"
 
 echo "Enter the IP Address of the docker-registry: "
 read -r REGISTRY_ADDRESS
-echo "Enter the port of the docker-registry: "
-read -r REGISTRY_PORT
 echo "Enter the IP Address of the Kubernetes master node / control plane: "
 read -r KUBE_MASTER
 echo "Enter path to the private key to access the Kubernetes master node / control plane"
@@ -49,7 +46,7 @@ configureKubectl()
 
 deployCodeOnKube()
 {
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS":"$REGISTRY_PORT"'/g' kube-deployment-config/public-app-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/public-app-deployment.yaml
     
     kubectl create namespace divoc
 

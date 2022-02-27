@@ -2,10 +2,8 @@
 
 SRC_CODE="./src_code"
 
-echo "Enter the IP Address of the docker-registry: "
+echo "Enter the IP Address with port of the docker-registry: "
 read -r REGISTRY_ADDRESS
-echo "Enter the port of the docker-registry: "
-read -r REGISTRY_PORT
 echo "Enter the repository containing the source code: "
 read -r REPO
 
@@ -51,11 +49,11 @@ cloneRepo()
 
 replaceDockerRegistryWithPrivateRegistry()
 {
-    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS":"$REGISTRY_PORT"'/g' "$SRC_CODE"/Makefile
-    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS":"$REGISTRY_PORT"'/g' "$SRC_CODE"/backend/Makefile
-    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS":"$REGISTRY_PORT"'/g' "$SRC_CODE"/backend/certificate_signer/Makefile
-    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS":"$REGISTRY_PORT"'/g' "$SRC_CODE"/backend/test_certificate_signer/Makefile
-    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS":"$REGISTRY_PORT"'/g' "$SRC_CODE"/backend/certificate_api/Makefile
+    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/Makefile
+    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/Makefile
+    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/certificate_signer/Makefile
+    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/test_certificate_signer/Makefile
+    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/certificate_api/Makefile
 }
 
 buildAndPublishDivoc()
