@@ -4,46 +4,30 @@ INVENTORY_FILE="./inventory.ini"
 SRC_CODE="./src_code"
 
 echo "Enter the IP Address of the docker-registry: "
-read -r REGISTRY
+read -r REGISTRY_ADDRESS
+echo "Enter the port of the docker-registry: "
+read -r REGISTRY_PORT
 echo "Enter the IP Address of the Kubernetes master node / control plane: "
 read -r KUBE_MASTER
 echo "Enter path to the private key to access the Kubernetes master node / control plane"
 read -r KUBE_MASTER_KEY_PATH
-echo "Enter the repository containing the source code: "
-read -r REPO
 
 installDependencies()
 {
-    if command -v git
-    then
-        echo "command git exists on system"
-    else
-        echo "git could not be found"
-        echo "Installing GIT..."
-        apt -qq -y update
-        apt -qq -y install git
-    fi
-
-    if command -v make
-    then 
-        echo "command make exists on system"
-    else   
-        echo "make could not be found"
-        echo "installing make"
-        apt -qq -y update
-        apt -qq -y install make
-    fi
-
-    if command -v docker
-    then 
-        echo "command docker exists on system"
-    else   
-        echo "docker could not be found"
-        echo "installing docker"
-        apt -qq -y update
-        apt -qq -y install docker.io
-    fi
     
+    if command -v kubectl
+    then
+        echo "Kubectl exists on your system"
+    else
+        echo "Installing Kubectl"
+        apt -qq -y update
+        apt install -y apt-transport-https ca-certificates curl
+        curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+        apt -qq -y update
+        apt -qq -y install kubectl
+    fi
+
     if command -v helm
     then
         echo "command helm exists on system"
@@ -56,32 +40,16 @@ installDependencies()
 
 configureKubectl()
 {
-    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml --extra-vars "registry=$REGISTRY"
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml --extra-vars "registry=$REGISTRY_ADDRESS:$REGISTRY_PORT"
     mkdir -p ~/.kube
     scp -i "$KUBE_MASTER_KEY_PATH" ubuntu@"$KUBE_MASTER":~/kubeadmin.conf ~/.kube/config
     sed -i 's/127.0.0.1/'"$KUBE_MASTER"'/g' ~/.kube/config
 
 }
 
-cloneRepo()
-{
-    echo "Cloning from $REPO into local directory $SRC_CODE"
-    git clone -q "$REPO" "$SRC_CODE"
-    echo "Source Code cloned successfully"
-}
-
-buildPublicApp()
-{
-    docker build -t "$REGISTRY":5000/nginx "$SRC_CODE"
-    docker image push "$REGISTRY":5000/nginx:latest
-    echo "Deleting $SRC_CODE"
-    rm -rf "$SRC_CODE"
-
-}
-
 deployCodeOnKube()
 {
-    sed -i 's/REGISTRY/'"$REGISTRY"'/g' kube-deployment-config/public-app-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS":"$REGISTRY_PORT"'/g' kube-deployment-config/public-app-deployment.yaml
     
     kubectl create namespace divoc
 
@@ -161,11 +129,12 @@ setupMonitoring()
     helm install kube-prometheus  prometheus-community/kube-prometheus-stack --namespace monitoring
     kubectl patch svc kube-prometheus-grafana -n monitoring -p '{"spec": {"type": "NodePort", "ports":[{"name":"http-web", "port": 80, "protocol": "TCP", "targetPort": 3000, "nodePort": 30000}]}}'
 }
+
+echo "Starting to deploy divoc"
 date
 installDependencies
 configureKubectl
-cloneRepo
-buildPublicApp
 deployCodeOnKube
-# setupMonitoring
+setupMonitoring
+echo "Installation Completed"
 date

@@ -22,5 +22,5 @@
       shell: touch /etc/docker/daemon.json
     - name: 'Add insecure access to docker registry'
       shell: |
-        echo '{"insecure-registries" : ["{{ registry }}:5000"]}' >> /etc/docker/daemon.json
+        echo '{"insecure-registries" : ["{{ registry }}"]}' >> /etc/docker/daemon.json
         service docker restart
