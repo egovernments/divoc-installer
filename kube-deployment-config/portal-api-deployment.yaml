@@ -16,7 +16,7 @@ spec:
         k8s-app: portal-api
     spec:
       containers:
-        - image: REGISTRY/portal_api:1.24.0-generic
+        - image: REGISTRY/portal_api:latest
           imagePullPolicy: Always
           name: portal-api
           envFrom:

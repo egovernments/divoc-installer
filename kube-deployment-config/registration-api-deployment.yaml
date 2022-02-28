@@ -16,7 +16,7 @@ spec:
         k8s-app: registration-api
     spec:
       containers:
-        - image: REGISTRY/registration_api:1.24.0-generic
+        - image: REGISTRY/registration_api:latest
           imagePullPolicy: Always
           name: registration-api
           envFrom:

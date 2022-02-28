@@ -16,7 +16,7 @@ spec:
         k8s-app: digilocker-support-api
     spec:
       containers:
-        - image: REGISTRY/digilocker_support_api:1.0.56
+        - image: REGISTRY/digilocker_support_api:latest
           imagePullPolicy: Always
           name: digilocker-support-api
           envFrom:

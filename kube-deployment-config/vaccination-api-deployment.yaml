@@ -25,7 +25,7 @@ spec:
       name: vaccination-api
     spec:
       containers:
-        - image: REGISTRY/vaccination_api:1.24.0-generic-sec-update
+        - image: REGISTRY/vaccination_api:latest
           imagePullPolicy: Always
           envFrom:
             - configMapRef:

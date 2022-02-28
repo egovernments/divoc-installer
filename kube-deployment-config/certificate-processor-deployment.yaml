@@ -16,7 +16,7 @@ spec:
         k8s-app: certificate-processor
     spec:
       containers:
-        - image: REGISTRY/certificate_processor:1.24.0-generic
+        - image: REGISTRY/certificate_processor:latest
           imagePullPolicy: Always
           name: certificate-processor
           envFrom:

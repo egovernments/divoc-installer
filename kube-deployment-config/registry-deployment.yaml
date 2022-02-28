@@ -40,7 +40,7 @@ spec:
               value: "100"
             - name: signature_enabled
               value: "false"
-          image: REGISTRY/registry-es:1.25.0-generic
+          image: REGISTRY/registry-es:latest
           imagePullPolicy: Always
           name: registry
           ports:

@@ -16,7 +16,7 @@ spec:
         k8s-app: test-certificate-signer
     spec:
       containers:
-        - image: REGISTRY/test_certificate_signer:1.24.0-generic
+        - image: REGISTRY/test_certificate_signer:latest
           imagePullPolicy: Always
           resources:
             requests:
