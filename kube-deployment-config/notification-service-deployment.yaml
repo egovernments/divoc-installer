@@ -16,7 +16,7 @@ spec:
         k8s-app: notification-service
     spec:
       containers:
-        - image: dockerhub/notification-service:1.24.0-generic
+        - image: REGISTRY/notification-service:1.24.0-generic
           imagePullPolicy: Always
           name: notification-service
           envFrom:

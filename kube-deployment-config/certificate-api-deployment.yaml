@@ -16,7 +16,7 @@ spec:
         k8s-app: certificate-api
     spec:
       containers:
-        - image: dockerhub/certificate_api:1.24.0-generic
+        - image: REGISTRY/certificate_api:1.24.0-generic
           imagePullPolicy: Always
           name: certificate-api
           envFrom:

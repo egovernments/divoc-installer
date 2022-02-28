@@ -2,7 +2,7 @@
 
 INVENTORY_FILE="./inventory.ini"
 
-echo "Enter the IP Address of the docker-registry: "
+echo "Enter the IP Address of the docker-registry with Port: "
 read -r REGISTRY_ADDRESS
 echo "Enter the IP Address of the Kubernetes master node / control plane: "
 read -r KUBE_MASTER
@@ -44,10 +44,26 @@ configureKubectl()
 
 }
 
+addRegistryToDeploymentFiles()
+{
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/analytics-feed-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/certificate-api-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/certificate-processor-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/certificate-signer-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/correct-certificate-signer-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/digilocker-support-api-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/keycloak-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/notification-service-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/portal-api-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/public-app-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/registry-api-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/registry-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/test-certificate-signer-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/vaccination-api-deployment.yaml
+}
+
 deployCodeOnKube()
 {
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/public-app-deployment.yaml
-    
     kubectl create namespace divoc
 
     kubectl apply -f kube-deployment-config/divoc-config.yaml -n divoc
@@ -131,6 +147,7 @@ echo "Starting to deploy divoc"
 date
 installDependencies
 configureKubectl
+addRegistryToDeploymentFiles
 deployCodeOnKube
 setupMonitoring
 echo "Installation Completed"

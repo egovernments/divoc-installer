@@ -16,7 +16,7 @@ spec:
         k8s-app: certificate-signer
     spec:
       containers:
-        - image: dockerhub/certificate_signer:1.24.0-generic-sec-update
+        - image: REGISTRY/certificate_signer:1.24.0-generic-sec-update
           imagePullPolicy: Always
           name: certificate-signer
           envFrom:
