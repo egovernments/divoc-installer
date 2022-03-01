@@ -2,10 +2,26 @@
 
 SRC_CODE="./src_code"
 
-echo "Enter the IP Address with port of the docker-registry: "
-read -r REGISTRY_ADDRESS
-echo "Enter the repository containing the source code: "
-read -r REPO
+while getopts ":d:r:" opt; do
+    case $opt in
+        d) 
+            d=$OPTARG
+            ;;
+        r) 
+            r=$OPTARG
+            ;;
+        \?)
+            echo "Invalid argument"
+            exit 1
+            ;;
+    esac;
+done
+
+REGISTRY_ADDRESS=${d:-divoc}
+REPO=${r:-"https://github.com/egovernments/DIVOC.git"}
+
+echo "registry: $REGISTRY_ADDRESS"
+echo "repo: $REPO"
 
 installDependencies()
 {
@@ -49,16 +65,17 @@ cloneRepo()
 
 replaceDockerRegistryWithPrivateRegistry()
 {
-    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/Makefile
-    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/Makefile
-    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/certificate_signer/Makefile
-    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/test_certificate_signer/Makefile
-    sed -i 's/dockerhub/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/certificate_api/Makefile
+    sed -i 's/divoc/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/Makefile
+    sed -i 's/divoc/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/Makefile
+    sed -i 's/divoc/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/certificate_signer/Makefile
+    sed -i 's/divoc/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/test_certificate_signer/Makefile
+    sed -i 's/divoc/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/certificate_api/Makefile
 }
 
 buildAndPublishDivoc()
 {
     make docker -C "$SRC_CODE"
+    # How do we handle implementation specific versions
     make publish -C "$SRC_CODE"
     echo "Deleting $SRC_CODE"
     rm -rf "$SRC_CODE"

@@ -1,13 +1,39 @@
 #!/bin/sh
 
-INVENTORY_FILE="./inventory.ini"
 
-echo "Enter the IP Address of the docker-registry with Port: "
-read -r REGISTRY_ADDRESS
-echo "Enter the IP Address of the Kubernetes master node / control plane: "
-read -r KUBE_MASTER
-echo "Enter path to the private key to access the Kubernetes master node / control plane"
-read -r KUBE_MASTER_KEY_PATH
+while getopts ":i:p:d:k:s:" opt; do
+    case $opt in
+        i) 
+            i=$OPTARG
+            ;;
+        p) 
+            p=$OPTARG
+            ;;
+        d) 
+            d=$OPTARG
+            ;;
+        k) 
+            KUBE_MASTER=$OPTARG
+            ;;
+        s) 
+            KUBE_MASTER_KEY_PATH=$OPTARG
+            ;;
+        \?)
+            echo "Invalid argument"
+            exit 1
+            ;;
+    esac;
+done
+
+INVENTORY_FILE=${i:-"./inventory.example.ini"}
+REGISTRY_ADDRESS=${d:-"divoc"}
+KUBECTL_DIR=${p:-"./kube-deployment-config-example"}
+
+echo "Inventory File: $INVENTORY_FILE"
+echo "Registry Address: $REGISTRY_ADDRESS"
+echo "Kubernetes Master Node: $KUBE_MASTER"
+echo "Path to the SSH Key file  to access the Kubernetes Master Node: $KUBE_MASTER_KEY_PATH"
+echo "Directory containing Kubernetes deployment artefacts: $KUBECTL_DIR"
 
 installDependencies()
 {
@@ -37,7 +63,7 @@ installDependencies()
 
 configureKubectl()
 {
-    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml --extra-vars "registry=$REGISTRY_ADDRESS:$REGISTRY_PORT"
+    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/configuration/playbook.yml --extra-vars "registry=$REGISTRY_ADDRESS"
     mkdir -p ~/.kube
     scp -i "$KUBE_MASTER_KEY_PATH" ubuntu@"$KUBE_MASTER":~/kubeadmin.conf ~/.kube/config
     sed -i 's/127.0.0.1/'"$KUBE_MASTER"'/g' ~/.kube/config
@@ -46,75 +72,31 @@ configureKubectl()
 
 addRegistryToDeploymentFiles()
 {
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/analytics-feed-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/certificate-api-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/certificate-processor-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/certificate-signer-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/correct-certificate-signer-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/digilocker-support-api-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/keycloak-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/notification-service-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/portal-api-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/public-app-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/registry-api-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/registry-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/test-certificate-signer-deployment.yaml
-    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' kube-deployment-config/vaccination-api-deployment.yaml
+    #kube-config also become arguments
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/analytics-feed-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/certificate-api-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/certificate-processor-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/certificate-signer-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/correct-certificate-signer-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/digilocker-support-api-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/keycloak-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/notification-service-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/portal-api-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/public-app-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/registry-api-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/registry-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/test-certificate-signer-deployment.yaml
+    sed -i 's/REGISTRY/'"$REGISTRY_ADDRESS"'/g' "$KUBECTL_DIR"/vaccination-api-deployment.yaml
 }
 
 deployCodeOnKube()
 {
     kubectl create namespace divoc
 
-    kubectl apply -f kube-deployment-config/divoc-config.yaml -n divoc
-    # Keycloak
-    kubectl apply -f kube-deployment-config/keycloak-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/keycloak-service.yaml -n divoc
-
-    # Registry
-    kubectl apply -f kube-deployment-config/registry-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/registry-service.yaml -n divoc
-
-    # Vaccination API
-    kubectl apply -f kube-deployment-config/vaccination-api-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/vaccination-api-service.yaml -n divoc
-
-    # Certificate Processor
-    kubectl apply -f kube-deployment-config/certificate-processor-deployment.yaml -n divoc   
-
-    # Certificate Signer
-    kubectl apply -f kube-deployment-config/certificate-signer-deployment.yaml -n divoc
-
-    # Notification Service
-    kubectl apply -f kube-deployment-config/notification-service-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/notification-service-service.yaml -n divoc
-
-    # DIGI LOCKER Service
-    kubectl apply -f kube-deployment-config/digilocker-support-api-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/digilocker-support-api-service.yaml -n divoc
-
-    # Certificate API
-    kubectl apply -f kube-deployment-config/certificate-api-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/certificate-api-service.yaml -n divoc
-
-    # PORTAL API
-    kubectl apply -f kube-deployment-config/portal-api-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/portal-api-service.yaml -n divoc
-
-    # Registration API
-    kubectl apply -f kube-deployment-config/registration-api-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/registration-api-service.yaml -n divoc
-
-    # Flagr
-    kubectl apply -f kube-deployment-config/flagr-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/flagr-service.yaml -n divoc
-    
-    # Public  App
-    kubectl apply -f kube-deployment-config/public-app-deployment.yaml -n divoc
-    kubectl apply -f kube-deployment-config/public-app-service.yml -n divoc
+    kubectl apply -k "$KUBECTL_DIR"/kustomization.yaml -n divoc
     
     # Ingress Controller
-    kubectl apply -f kube-deployment-config/ingress-controller.yml
+    # kubectl apply -f "$KUBECTL_DIR"/ingress-controller.yml
     # echo "Creating Ingress Controller, wait time is 1 minute"
     # sleep 1m
     # helm install stable/nginx-ingress --set controller.hostNetwork=true,controller.service.type="",controller.kind=DaemonSet --generate-name
@@ -127,7 +109,7 @@ deployCodeOnKube()
     # kubectl apply -f kube-deployment-config/ingress.yaml -n divoc
 
     # Worker Node IP:<NodePort>
-    kubectl get svc  -n ingress-nginx
+    # kubectl get svc  -n ingress-nginx
 
 }
 
