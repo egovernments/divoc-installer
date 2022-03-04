@@ -25,6 +25,26 @@ echo "repo: $REPO"
 
 installDependencies()
 {
+    if command -v java
+    then
+        echo "JAVA exists on system"
+    else
+        echo "JAVA not found"
+        echo "Installing JAVA"
+        apt -qq -y update
+        apt -qq -y install default-jdk
+    fi
+
+    if command -v mvn
+    then
+        echo "MAVEN exists on system"
+    else
+        echo "MAVEN not found"
+        echo "Installing MAVEN"
+        apt -qq -y update
+        apt -qq -y install maven
+    fi
+
     if command -v git
     then
         echo "command git exists on system"
@@ -66,6 +86,7 @@ cloneRepo()
 replaceDockerRegistryWithPrivateRegistry()
 {
     sed -i 's/divoc/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/Makefile
+    sed -i 's/divoc/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/registry/Makefile
     sed -i 's/divoc/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/Makefile
     sed -i 's/divoc/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/certificate_signer/Makefile
     sed -i 's/divoc/'"$REGISTRY_ADDRESS"'/g' "$SRC_CODE"/backend/test_certificate_signer/Makefile
@@ -75,7 +96,12 @@ replaceDockerRegistryWithPrivateRegistry()
 buildAndPublishDivoc()
 {
     make docker -C "$SRC_CODE"
-    # How do we handle implementation specific versions
+    cd "$SRC_CODE"/keycloak-mobile-number-login || exit
+    ./mvnw clean install
+    cp -r themes ../keycloak/
+    cd .. || exit
+    docker build -t "$REGISTRY_ADDRESS"/keycloak "$SRC_CODE"/keycloak
+    make all -C "$SRC_CODE"/registry
     make publish -C "$SRC_CODE"
     echo "Deleting $SRC_CODE"
     rm -rf "$SRC_CODE"
