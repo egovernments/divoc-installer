@@ -15,7 +15,7 @@ data:
   FLAGR_DB_DBDRIVER: "postgres"
   HOST: 0.0.0.0
   FLAGR_WEB_PREFIX: /config
-  FLAGR_DB_DBCONNECTIONSTR:  postgres://postgres:2RQR6z3DWjnE@divoc-platform-qa.cqqfmghbjssw.ap-south-1.rds.amazonaws.com:5432/registry?sslmode=disable
+  FLAGR_DB_DBCONNECTIONSTR:  postgres://postgres:password@localhost:5432/registry?sslmode=disable
 
   AUTH_PUBLIC_KEY: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1mIX9SFluySnfIfT6Jz5LdORWO+O0j3L7cF+BLaAdX7JuiN10MTISpyOA5z81YXMSgk0PPLUzHv5DTDPMR3rsb6ut/PweLn9sLmwsj9OGSAuH7DFOHVV+Mct9TXBeZu1tzboDhtqKz1PMnBFdmgvd2+WnKYtdWfgo8kB82WkGolAT7++efm/HnOkvRkoNbefbbpnELjtcM5uN32HdCpzTm87zshvOoEvkBUcBJdmKNjzLwBc0E2SpthOuxQUw7zSSqnvOOW+sOub6dIgDgR557KyVGKL9NUvlbbp9jglcZERtpE6pRhbjDwBlmzx8NufSap24VzWIUNjy+CiF0J6OQIDAQAB\n-----END PUBLIC KEY-----\n"
   REGISTRATION_API_PUBLIC_KEY: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1mIX9SFluySnfIfT6Jz5LdORWO+O0j3L7cF+BLaAdX7JuiN10MTISpyOA5z81YXMSgk0PPLUzHv5DTDPMR3rsb6ut/PweLn9sLmwsj9OGSAuH7DFOHVV+Mct9TXBeZu1tzboDhtqKz1PMnBFdmgvd2+WnKYtdWfgo8kB82WkGolAT7++efm/HnOkvRkoNbefbbpnELjtcM5uN32HdCpzTm87zshvOoEvkBUcBJdmKNjzLwBc0E2SpthOuxQUw7zSSqnvOOW+sOub6dIgDgR557KyVGKL9NUvlbbp9jglcZERtpE6pRhbjDwBlmzx8NufSap24VzWIUNjy+CiF0J6OQIDAQAB\n-----END PUBLIC KEY-----\n"
@@ -32,7 +32,7 @@ data:
   CONFIGURATION_LAYER: "etcd"
   POSTGRES_DB: "registry"
   POSTGRES_USER: "postgres"
-  POSTGRES_PASSWORD: "2RQR6z3DWjnE"
+  POSTGRES_PASSWORD: "password"
   ETCD_PEER_CONNECTIONS_PORT: "2380"
   ETCD_CLIENT_CONNECTIONS_PORT: "2379"
   ETCD_DATA_DIR: /etcd-data
@@ -47,24 +47,24 @@ data:
   ETCD_LOG_LEVEL: info
   ETCD_LOGGER: zap
   ETCD_LOG_OUTPUTS: stderr
-  ETCD_URL: 192.168.88.176:2379
-  DB_HOST: "divoc-platform-qa.cqqfmghbjssw.ap-south-1.rds.amazonaws.com"
-  DB_PASSWORD: "2RQR6z3DWjnE"
+  ETCD_URL: localhost:2379
+  DB_HOST: "localhost"
+  DB_PASSWORD: "password"
   DB_USER: "postgres"
   DB_PORT: "5432"
   DB_DATABASE: "registry"
   ENABLE_CERTIFY_ACKNOWLEDGEMENT: ''
-  KAFKA_BOOTSTRAP_SERVERS: "192.168.88.176:9092"
+  KAFKA_BOOTSTRAP_SERVERS: "localhost:9092"
   KEYCLOAK_URL: 'http://keycloak:8080/auth'
   CACHE_TTL: "60"
   PUBLIC_KEY: ""
   REGISTRY_URL: http://registry:8081
   REGISTRY_WITH_ES_URL: http://registry-es:8081
-  REDIS_URL: "redis://192.168.88.176:6379"
+  REDIS_URL: "redis://localhost:6379"
   DISABLE_REGISTRY_CALL: ""
   DIGILOCKER_HMAC_AUTHKEY: "UPDATE_KEY_GIVEN_IN_DIGILOCKER"
   ENABLE_KEYCLOAK: "true"
-  CLICK_HOUSE_URL: "tcp://192.168.88.176:9000?debug=true"
+  CLICK_HOUSE_URL: "tcp://localhost:9000?debug=true"
   CERTIFICATE_NAMESPACE: "https://divoc.egov.org.in/credentials/vaccination/v1"
   CERTIFICATE_NAMESPACE_V2: "https://divoc.egov.org.in/credentials/vaccination/v2"
   CERTIFICATE_CONTROLLER_ID: "https://divoc.egov.org.in/"
@@ -77,8 +77,6 @@ data:
   CERTIFICATE_PUBLIC_KEY: "ARoP1iNrRMSksxjqp9AMMdY6Gk3FRwteQNshyPtTa8NN"
   CERTIFICATE_PRIVATE_KEY: "5vsfRNET9QDG72twFFCGLSYP6n9pDjdsz1R3PoHmZKAbYZYkLCNAWFKUDUgQGWCkRTYNcFkyne2BwvEsUzmBLiBU"
   CITIZEN_PORTAL_URL: "https://divoc-qa.egov.org.in"
-  #SMS_URL: "https://egovja.api.infobip.com/sms/2/text/advanced"
-  #SMS_AUTH_KEY: "App 5dc1cd995acf0d9e7b039904047db277-b4958d86-c0b2-4825-94f9-ab7c5b140566"
   ENABLE_CERTIFIED_SMS: "false"
   ENABLE_SMS: "false"
   SENDER_EMAIL: "xxxx@mail.com"
