@@ -2,13 +2,16 @@
 
 SRC_CODE="./src_code"
 
-while getopts ":d:r:" opt; do
+while getopts ":d:r:e:" opt; do
     case $opt in
         d) 
             d=$OPTARG
             ;;
         r) 
             r=$OPTARG
+            ;;
+        e)
+            e=$OPTARG
             ;;
         \?)
             echo "Invalid argument"
@@ -19,7 +22,7 @@ done
 
 REGISTRY_ADDRESS=${d:-divoc}
 REPO=${r:-"https://github.com/egovernments/DIVOC.git"}
-
+etcd=${e:-"127.0.0.1:2379"}
 echo "registry: $REGISTRY_ADDRESS"
 echo "repo: $REPO"
 
@@ -107,10 +110,18 @@ buildAndPublishDivoc()
     rm -rf "$SRC_CODE"
 }
 
+updateConfigs()
+{
+    cd "$SRC_CODE/default-configuration/etcd"
+    bash updateConfigs.sh $e
+    cd -
+}
+
 echo "Starting build"
 date
 installDependencies
 cloneRepo
+updateConfigs
 replaceDockerRegistryWithPrivateRegistry
 buildAndPublishDivoc
 echo "build completed"
