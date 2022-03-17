@@ -1,5 +1,8 @@
 # DIVOC Installer
 This installer helps in setting up the infrastructure for the DIVOC platform. This uses ANSIBLE and  shell  scripts to help setup infrastructure and install the DIVOC platform.
+
+Additional information on how this  installer works can be found [here](https://divoc.egov.org.in/implementing-divoc/how-to-install-divoc)
+
 ## Credits
 The following open source projects have been used to create this installer.
 * [Kubespray](https://github.com/kubernetes-sigs/kubespray)
