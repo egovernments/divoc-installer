@@ -1,6 +1,6 @@
-#DIVOC Installer
+# DIVOC Installer
 This installer helps in setting up the infrastructure for the DIVOC platform. This uses ANSIBLE and  shell  scripts to help setup infrastructure and install the DIVOC platform.
-##Credits
+## Credits
 The following open source projects have been used to create this installer.
 * [Kubespray](https://github.com/kubernetes-sigs/kubespray)
 * [Sansible role for Kafka](https://github.com/sansible/kafka)
