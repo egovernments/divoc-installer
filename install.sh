@@ -33,6 +33,14 @@ installDependencies()
         add-apt-repository -qq --yes --update ppa:ansible/ansible
         apt -qq -y install ansible
     fi
+
+    if command -v etcdctl
+    then
+        echo "etcd-client exists on your system"
+    else
+        echo "Installing etcd-client"
+        apt -qq -y install etcd-client
+    fi
     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/docker-registry/playbook.yml
     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/elastic-search/playbook.yml
     ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i "$INVENTORY_FILE" --become --become-user=root  ./ansible-cookbooks/redis/playbook.yml
