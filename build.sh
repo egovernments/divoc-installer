@@ -113,7 +113,7 @@ buildAndPublishDivoc()
 updateConfigs()
 {
     cd "$SRC_CODE/default-configuration/etcd"
-    bash updateConfigs.sh $e
+    bash updateConfigs.sh $etcd
     cd -
 }
 
